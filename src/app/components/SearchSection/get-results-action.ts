@@ -2,10 +2,14 @@
 
 import prisma from '@/db';
 
-export const getResults = async (postCode: string) => {
+export const getResults = async (addressFull: string) => {
   try {
     const result = await prisma.listing.findMany({
-      where: { postCode },
+      where: {
+        addressFull: {
+          contains: addressFull
+        }
+      }
     });
 
     return result;

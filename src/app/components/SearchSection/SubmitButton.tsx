@@ -2,7 +2,7 @@
 
 import LoadingIcon from '@/app/images/svg/LoadingIcon';
 import SearchIcon from '@/app/images/svg/SearcIcon';
-import Image from 'next/image';
+// import Image from 'next/image';
 import React, { FC } from 'react';
 import { useFormStatus } from 'react-dom';
 

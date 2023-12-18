@@ -6,7 +6,7 @@ import ImageGallery from 'react-image-gallery';
 import { numberWithCommas } from '@/app/helpers/listings';
 
 export const ListingCard: FC<Listing> = ({
-  title,
+  // title,
   listingPrice,
   beds,
   baths,
@@ -15,8 +15,9 @@ export const ListingCard: FC<Listing> = ({
   groundRent,
   datePosted,
   pictures,
-  url,
-  area
+  // url,
+  area,
+  postCode
 }) => {
   const pics = useMemo(() => {
     if (!pictures) return [];
@@ -45,7 +46,8 @@ export const ListingCard: FC<Listing> = ({
         <div className="text-xl	font-bold mb-2">
           £{numberWithCommas(listingPrice)}
         </div>
-        <div className="text-lg font-medium">{address}</div>
+        <div className="text-lg font-medium">Address: {address}</div>
+        <div className="text-lg font-medium">Postcode: {postCode}</div>
         {area && (
           <div className="text-lg font-medium mt-2 mb-2">
             Area: {area} sq. ft
@@ -71,7 +73,7 @@ export const ListingCard: FC<Listing> = ({
         <div className="mt-3 text-sm">
           Date posted: {moment(datePosted).format('MMM YYYY')}
         </div>
-        <div className="text-right absolute right-1 bottom-0">
+        {/* <div className="text-right absolute right-1 bottom-0">
           <a
             href={url}
             target="_blank"
@@ -80,7 +82,7 @@ export const ListingCard: FC<Listing> = ({
           >
             Read more
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
