@@ -5,21 +5,38 @@ const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
 
   theme: {
     extend: {
       container: {
-        center: true,
+        center: true
       },
       colors: {
-        dark: '#000',
-        'light-grey': '#eee',
-        error: 'red',
+        light: 'var(--light)',
+        lightGreen: 'var(--light-green)',
+        highlight: 'var(--highlight)',
+        highlightLighter: 'var(--highlight-lighter)',
+        highlightSecondary: 'var(--highlight-secondary)',
+        dark: 'var(--dark)',
+        white: 'var(--white)',
+        grey: 'var(--grey)',
+        error: 'var(--error)',
+        border: 'var(--border)'
       },
-    },
+      borderRadius: {
+        md: 'var(--border-radius)'
+      },
+      screens: {
+        xs: { max: '500px' },
+        sm: { min: '0px', max: '767px' },
+        md: { min: '0px', max: '1199px' },
+        tb: { min: '768px', max: '1199px' },
+        lg: { min: '1200px' }
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };
 export default config;

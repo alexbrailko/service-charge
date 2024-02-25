@@ -2,19 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 @import '~react-image-gallery/styles/css/image-gallery.css';
+@import './fonts/stylesheet.css';
 
 :root {
-  --purple: purple;
+  --l: 50%;
+  --light: #e8f1ee;
+  --light-green: #c9d8d3;
+  --highlight: #5dd5a4;
+  --highlight-lighter: #86e6bf;
+  --highlight-secondary: #23dd9f;
+  --dark: #2a2a39;
+  --white: #fff;
+  --grey: #a4a4a4;
+  --error: red;
+  --border: #d3e0dc;
+  --border-radius: 10px;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: #2a2a39;
+  font-family: 'Daikon';
 }
 
 .container {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 40px;
+  line-height: 52px;
+}
+
+h3 {
+  font-size: 32px;
+  line-height: 42px;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 29px;
+  margin-bottom: 0.9rem;
 }
 
 .image-gallery-left-nav .image-gallery-svg,
@@ -36,4 +73,68 @@ body {
 
 .leaflet-container {
   height: 270px;
+}
+
+.box-shadow {
+  box-shadow: 0px 4px 13px rgba(30, 35, 66, 0.11);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 40px 20px;
+  border-radius: var(--border-radius);
+  width: 500px;
+  max-width: 90%;
+}
+
+.modal:focus-visible: {
+  outline: none;
+  border: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 300ms ease-out;
+}
+
+#form-item-message {
+  color: var(--error);
+}
+
+@media (max-width: 1199px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  h2 {
+    font-size: 28px;
+  }
 }

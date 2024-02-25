@@ -1,5 +1,5 @@
 import { Listing } from '@prisma/client';
-import create from 'zustand';
+import { create } from 'zustand';
 
 const listingsStore = (set: any) => ({
   listings: [],
@@ -7,27 +7,33 @@ const listingsStore = (set: any) => ({
   totalPages: 0,
   currentPage: 1,
   loading: false,
+  error: false,
   setCurrentPage: (page: number) => {
     set(() => ({
-      currentPage: page,
+      currentPage: page
     }));
   },
   addListings: (list: Listing[], pages: number) => {
     set(() => ({
       listings: list,
-      totalPages: pages,
+      totalPages: pages
     }));
   },
   setLoading: (loading: boolean) => {
     set(() => ({
-      loading: loading,
+      loading
+    }));
+  },
+  setError: (error: boolean) => {
+    set(() => ({
+      error
     }));
   },
   setTotalListings: (total: number) => {
     set(() => ({
-      totalListings: total,
+      totalListings: total
     }));
-  },
+  }
 });
 
 export const useListingsStore = create(listingsStore);

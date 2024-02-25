@@ -2,29 +2,22 @@
 
 import React, { FC } from 'react';
 import { SearchForm } from './SearchForm';
-import { Map } from './Map';
-import { MapWrapper } from './MapWrapper';
 
-interface SearchSectionProps {
-  onsubmit?: (value: string) => void;
-}
+interface SearchSectionProps {}
 
-export const SearchSection: FC<SearchSectionProps> = ({ onsubmit }) => {
+export const SearchSection: FC<SearchSectionProps> = ({}) => {
   return (
-    <div className="bg-light-grey">
-      <div className="container pt-4 pb-2 flex items-center">
-        <div className="w-3/5 text-center pr-12">
-          <h2 className="text-3xl font-semibold mb-5">
-            Service Charge Checker & Database
-          </h2>
-          <p className="mb-8">
-            Whether you are buying your house, planning to invest in UK property
-            market or looking to opyimize your service charge spending
+    <div className="h-[487px] bg-[url('/search-bg.jpg')] sm:bg-[url('/search-bg-mob.jpg')]">
+      <div className="container pt-4 pb-2 h-[100%] flex items-center">
+        <div className=" text-center ">
+          <h1 className="text-[56px] sm:text-[32px] text-white">
+            Service Charge checker & Database
+          </h1>
+          <p className="text-white text-xl leading-[155%] w-[60%] mx-auto font-light mb-9 mt-2 sm:w-[100%] sm:text-[15px]">
+            Whether you`re buying your house, planning to invest in UK property
+            market or looking to optimise your service charge spending
           </p>
           <SearchForm />
-        </div>
-        <div className="w-2/5">
-          <MapWrapper />
         </div>
       </div>
     </div>

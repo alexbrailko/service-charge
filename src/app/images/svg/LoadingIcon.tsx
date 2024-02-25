@@ -1,9 +1,13 @@
 import * as React from 'react';
-interface LoadingIconProps {
+interface LoadingIconProps extends React.SVGProps<SVGSVGElement> {
   size: string;
   color: string;
 }
-const LoadingIcon: React.FC<LoadingIconProps> = ({ size, color }) => (
+export const LoadingIcon: React.FC<LoadingIconProps> = ({
+  size,
+  color,
+  ...props
+}) => (
   <svg
     version="1.1"
     id="loader-1"
@@ -14,6 +18,7 @@ const LoadingIcon: React.FC<LoadingIconProps> = ({ size, color }) => (
     width={size}
     height={size}
     viewBox="0 0 50 50"
+    {...props}
     //style="enable-background:new 0 0 50 50;"
     // xml:space="preserve"
   >
@@ -33,4 +38,3 @@ const LoadingIcon: React.FC<LoadingIconProps> = ({ size, color }) => (
     </path>
   </svg>
 );
-export default LoadingIcon;

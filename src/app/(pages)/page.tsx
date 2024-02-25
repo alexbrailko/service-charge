@@ -1,12 +1,12 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { SearchSection } from './components/SearchSection/SearchSection';
-import { useEffect, useState } from 'react';
-import { Listing } from '@prisma/client';
-import { getResults } from './components/SearchSection/get-results-action';
-import Listings from './components/Listings/Listings';
-import { InfoSection } from './components/InfoSection';
-import { useListingsStore } from './store/listings';
+import { SearchSection } from '../components/SearchSection/SearchSection';
+import { useEffect } from 'react';
+//import { Listing } from '@prisma/client';
+// import { getResults } from './components/SearchSection/get-results-action';
+//import Listings from '../components/Listings/Listings';
+import { Services } from '../components/Services';
+import { useListingsStore } from '../store/listings';
 
 export default function Home() {
   //const [listings, setListings] = useState<Listing[]>();
@@ -34,8 +34,9 @@ export default function Home() {
   return (
     <>
       <SearchSection />
+      <Services />
 
-      {listings.length ? <Listings listings={listings} /> : <InfoSection />}
+      {/* {listings.length ? <Listings listings={listings} /> : <InfoSection />} */}
     </>
   );
 }

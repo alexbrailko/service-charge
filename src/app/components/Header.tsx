@@ -1,40 +1,50 @@
-import React from 'react';
-import LogoIcon from '@/app/images/logo.jpg';
-import SearchIcon from '@/app/images/svg/SearcIcon';
-import Image from 'next/image';
+'use client';
+
+import React, { useState } from 'react';
+
+import LogoIcon from '@/app/images/svg/LogoIcon';
+import SearchIcon from '@/app/images/svg/SearchIcon';
+import Sidebar from './Sidebar';
+import { BurgerIcon } from '../images/svg/BurgerIcon';
+import { Nav } from './Nav';
 
 export default function Header() {
+  const [navbarOpen, setNavbarOpen] = useState(false);
+
   return (
-    <div className="bg-dark">
-      <div className="container pt-2 pb-2 flex items-center justify-between">
-        <div>
+    <header>
+      <Sidebar isOpen={navbarOpen} toggle={() => setNavbarOpen(false)} />
+      <div className="top bg-light">
+        <Nav
+          className="
+        container flex  pt-3 pb-3 text-sm uppercase font-bold justify-center [&>*]:px-6 
+        tb:text-center 
+        sm:hidden
+        "
+        />
+      </div>
+
+      <div className="bottom container py-5 flex items-center justify-between">
+        <div className="flex items-center">
           <a href="/">
-            <Image src={LogoIcon} width={150} alt="logo" />
+            <LogoIcon />
           </a>
+          <hr className="w-[2px] h-[30px] bg-highlight mx-5 sm:hidden" />
+          <div className="text-sm/[15px] sm:hidden">
+            Service Charge checker & Database
+          </div>
         </div>
 
-        <ul className="flex [&>*]:text-white font-medium [&>*]:max-w-[140px] [&>*]:mx-2">
-          <li>
-            <a href="#">Service Charge - free checker</a>
-          </li>
-          <li>
-            <a href="#">Surface water & Flooding Checker</a>
-          </li>
-          <li>
-            <a href="#">Investment tools</a>
-          </li>
-          <li>
-            <a href="#">Property management</a>
-          </li>
-          <li>
-            <a href="#">Full Property checker</a>
-          </li>
-        </ul>
-
-        <div className="bg-white rounded-full p-4">
-          <SearchIcon color="#000" />
+        <div className="flex">
+          <div className="bg-highlight rounded-[10px] w-[43px] h-[43px] flex items-center justify-center">
+            <SearchIcon color="#FFF" size="12" />
+          </div>
+          <BurgerIcon
+            className="ml-[12px] tb:hidden lg:hidden"
+            onClick={() => setNavbarOpen(true)}
+          />
         </div>
       </div>
-    </div>
+    </header>
   );
 }

@@ -15,7 +15,7 @@ export const ListingCard: FC<Listing> = ({
   groundRent,
   datePosted,
   pictures,
-  // url,
+  url,
   area,
   postCode
 }) => {
@@ -73,7 +73,7 @@ export const ListingCard: FC<Listing> = ({
         <div className="mt-3 text-sm">
           Date posted: {moment(datePosted).format('MMM YYYY')}
         </div>
-        {/* <div className="text-right absolute right-1 bottom-0">
+        <div className="text-right absolute right-1 bottom-0">
           <a
             href={url}
             target="_blank"
@@ -82,7 +82,7 @@ export const ListingCard: FC<Listing> = ({
           >
             Read more
           </a>
-        </div> */}
+        </div>
       </div>
     </div>
   );
