@@ -91,7 +91,7 @@ h3 {
   max-width: 90%;
 }
 
-.modal:focus-visible: {
+.modal:focus-visible {
   outline: none;
   border: none;
 }
