@@ -15,7 +15,6 @@ import {
   SelectValue
 } from '@/app/components/ui/form/Select';
 import { bedroomsData, priceRangeData } from '@/app/helpers/filters';
-import { applyListingsFilters } from '@/app/queries/listingsActions';
 import { useListingsStore } from '@/app/store/listings';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { FC } from 'react';

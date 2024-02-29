@@ -22,6 +22,7 @@ const config: Config = {
         dark: 'var(--dark)',
         white: 'var(--white)',
         grey: 'var(--grey)',
+        grey2: 'var(--grey2)',
         error: 'var(--error)',
         border: 'var(--border)'
       },

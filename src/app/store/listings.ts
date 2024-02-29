@@ -1,9 +1,10 @@
 import { Listing } from '@prisma/client';
 import { create } from 'zustand';
-import { FiltersProps } from '../(pages)/search-results/Filters';
+import { FiltersProps } from '../(pages)/search-results/[address]/Filters';
 
-const listingsStore = (set: any) => ({
+const listingsStore = (set: any, get: any) => ({
   listings: [] as Listing[],
+  selectedListing: {} as Listing | null,
   totalListings: null,
   currentPage: 1,
   loading: false,
@@ -48,6 +49,16 @@ const listingsStore = (set: any) => ({
     set(() => ({
       filters: filters
     }));
+  },
+  getListing: (id: Listing['id']) => {
+    const listing = get().listings.filter((l: Listing) => l.id === id);
+    console.log('!!!', listing);
+
+    return listing ? listing : null;
+
+    // set(() => ({
+    //   selectedListing: listing ? listing : null
+    // }));
   }
 });
 

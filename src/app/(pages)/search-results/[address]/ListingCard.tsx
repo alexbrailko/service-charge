@@ -6,6 +6,7 @@ import { PinIcon } from '@/app/images/svg/PinIcon';
 import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { SquareIcon } from '@/app/images/svg/SquareIcon';
 import { Listing } from '@prisma/client';
+import Link from 'next/link';
 import React, { FC, useMemo } from 'react';
 import ImageGallery from 'react-image-gallery';
 
@@ -21,7 +22,8 @@ export const ListingCard: FC<Listing> = ({
   pictures,
   url,
   area,
-  postCode
+  postCode,
+  id
 }) => {
   const pics = useMemo(() => {
     if (!pictures) return [];
@@ -70,7 +72,10 @@ export const ListingCard: FC<Listing> = ({
           )}
         />
       </div>
-      <div className="py-[20px] px-[26px] flex-1">
+      <Link
+        href={`/property/${id}`}
+        className="py-[20px] px-[26px] flex-1 hover:bg-light transition-all duration-300"
+      >
         <div className="text-[22px] font-bold color-dark">
           £{numberWithCommas(listingPrice)}
         </div>
@@ -125,7 +130,7 @@ export const ListingCard: FC<Listing> = ({
             </div>
           )}
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

@@ -1,7 +1,8 @@
 'use server';
 
 import prisma from '@/db';
-import { FiltersProps } from '../(pages)/search-results/Filters';
+import { FiltersProps } from '../(pages)/search-results/[address]/Filters';
+import { Listing } from '@prisma/client';
 
 export const getListingsResults = async (
   addressFull: string,
@@ -36,7 +37,7 @@ export const getListingsResults = async (
   }
 };
 
-export const getListingById = async (id: string) => {
+export const getListingById = async (id: string): Promise<Listing | null> => {
   try {
     const result = await prisma.listing.findFirst({
       where: {
@@ -49,32 +50,6 @@ export const getListingById = async (id: string) => {
     return result;
   } catch (e) {
     console.log('Error:', e);
-    return [];
-  }
-};
-
-export const applyListingsFilters = async ({
-  priceMin,
-  priceMax,
-  bedrooms
-}: any) => {
-  try {
-    const result = await prisma.listing.findMany({
-      where: {
-        // addressFull: {
-        //   contains: address
-        // },
-        ...(bedrooms && {
-          beds: bedrooms
-        })
-      }
-    });
-
-    console.log('result', result);
-
-    return result;
-  } catch (e) {
-    console.log('Error:', e);
-    return [];
+    return null;
   }
 };
