@@ -4,17 +4,17 @@ import { Filters } from '../Filters';
 import { ListingsList } from '../ListingsList';
 
 interface SearchResultsPageProps {
-  params: { id: string };
+  params: { address: string };
 }
 
 const SearchResultsParamPage: FC<SearchResultsPageProps> = ({ params }) => {
-  console.log('params', params);
+  const address = params?.address && decodeURIComponent(params.address);
 
   return (
     <>
-      <SearchSection />
-      <Filters />
-      {/* <ListingsList /> */}
+      <SearchSection address={address} />
+      <Filters address={address} />
+      <ListingsList address={address} />
     </>
   );
 };

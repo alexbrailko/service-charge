@@ -54,6 +54,11 @@ h3 {
   margin-bottom: 0.9rem;
 }
 
+.image-gallery-slides {
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
 .image-gallery-left-nav .image-gallery-svg,
 .image-gallery-right-nav .image-gallery-svg {
   height: 60px;
@@ -124,6 +129,70 @@ h3 {
 
 #form-item-message {
   color: var(--error);
+}
+
+.pagination-item {
+  padding: 0 12px;
+  height: 48px;
+  min-width: 48px;
+  text-align: center;
+  margin: auto 4px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  letter-spacing: 0.01071em;
+  border-radius: var(--border-radius);
+  line-height: 1.43;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: var(--light);
+  transition: all 0.3s;
+}
+
+.pagination-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.pagination-item.selected {
+  background-color: var(--highlight);
+  color: #fff;
+}
+
+.pagination-item.disabled {
+  pointer-events: none;
+}
+
+.pagination-item .arrow:before {
+  position: relative;
+  /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+  content: '';
+  /* By using an em scale, the arrows will size with the font */
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  border-right: 0.12em solid var(--dark);
+  border-top: 0.12em solid var(--dark);
+}
+
+.pagination-item .arrow.left {
+  transform: rotate(-135deg) translate(-50%);
+}
+
+.pagination-item .arrow.right {
+  transform: rotate(45deg);
+}
+
+.pagination-item .arrow::before {
+  border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+  border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+}
+
+.pagination-item.dots:hover {
+  background-color: transparent;
+  cursor: default;
 }
 
 @media (max-width: 1199px) {

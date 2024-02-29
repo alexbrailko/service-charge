@@ -14,55 +14,67 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/app/components/ui/form/Select';
+import { bedroomsData, priceRangeData } from '@/app/helpers/filters';
+import { applyListingsFilters } from '@/app/queries/listingsActions';
+import { useListingsStore } from '@/app/store/listings';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const schema = z.object({
   bedrooms: z.string(),
-  price: z.string()
+  priceMin: z.string(),
+  priceMax: z.string()
 });
 
-const bedrooms = [
-  // { key: 1, value: '' },
-  { key: 2, value: '1' },
-  { key: 3, value: '2' }
-];
+export interface FiltersProps {
+  bedrooms?: number | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
+}
 
-interface FiltersProps {}
+interface FiltersComponentProps {
+  address: string;
+}
 
-export const Filters: FC<FiltersProps> = ({}) => {
+export const Filters: FC<FiltersComponentProps> = ({ address }) => {
+  const setFilters = useListingsStore((state) => state.setFilters);
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       bedrooms: '',
-      price: ''
+      priceMin: '',
+      priceMax: ''
     }
   });
 
   async function onSubmit(values: z.infer<typeof schema>) {
-    console.log(values);
+    const filters = {
+      bedrooms: Number(values.bedrooms) || null,
+      priceMin:
+        Number(values.priceMin.replace(/,/g, '').replace(/£/g, '')) || null,
+      priceMax:
+        Number(values.priceMax.replace(/,/g, '').replace(/£/g, '')) || null
+    };
+
+    setFilters(filters);
   }
 
-  //const fieldValue = form.watch('bedrooms');
-
   return (
-    <div className="bg-light py-5">
+    <div className="bg-light pt-6 pb-10">
       <div className="container">
-        <Button
-          title="Clear"
-          onClick={() => {
-            form.setValue('bedrooms', '');
-          }}
-        />
         <Form {...form}>
-          <form className="space-y-5 flex" id="filters">
+          <form
+            className="space-x-3 flex items-end justify-center	sm:items-center sm:flex-col sm:space-x-0 sm:space-y-4"
+            id="filters"
+          >
             <FormField
               control={form.control}
               name="bedrooms"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="min-w-[180px] sm:w-full">
                   <FormLabel>Bedrooms</FormLabel>
 
                   <Select
@@ -71,24 +83,18 @@ export const Filters: FC<FiltersProps> = ({}) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger
-                        fieldName={field.name}
-                        fieldValue={field.value}
-                        className="bg-white"
-                      >
+                      <SelectTrigger className="bg-white">
                         <SelectValue placeholder="Select bedrooms" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-white">
-                      {/* <SelectItem value="" key="-">
-                        Select bedrooms
-                      </SelectItem> */}
-                      {bedrooms.map(({ key, value }) => (
-                        <SelectItem
-                          //defaultValue="test"
-                          value={value}
-                          key={key}
-                        >
+                    <SelectContent
+                      className="bg-white"
+                      form={form}
+                      fieldName={field.name}
+                      fieldValue={field.value}
+                    >
+                      {bedroomsData.map(({ key, value }) => (
+                        <SelectItem value={value} key={key}>
                           {value}
                         </SelectItem>
                       ))}
@@ -97,39 +103,76 @@ export const Filters: FC<FiltersProps> = ({}) => {
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={form.control}
-              name="bedrooms"
+              name="priceMin"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Bedrooms</FormLabel>
+                <FormItem className="min-w-[180px] sm:w-full">
+                  <FormLabel>Min price</FormLabel>
                   <Select
+                    key={form.watch(field.name)}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="bg-white">
-                        <SelectValue placeholder="Select bedrooms" />
+                        <SelectValue placeholder="Select min price" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-white">
-                      {bedrooms.map((bedroom) => (
-                        <SelectItem  value={bedroom.toString()} key={bedroom}>
-                          {bedroom}
+                    <SelectContent
+                      className="bg-white"
+                      form={form}
+                      fieldName={field.name}
+                      fieldValue={field.value}
+                    >
+                      {priceRangeData(true).map(({ key, value }) => (
+                        <SelectItem value={value} key={key}>
+                          {value}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </FormItem>
               )}
-            /> */}
-
+            />
+            <FormField
+              control={form.control}
+              name="priceMax"
+              render={({ field }) => (
+                <FormItem className="min-w-[180px] sm:w-full">
+                  <FormLabel>Max price</FormLabel>
+                  <Select
+                    key={form.watch(field.name)}
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="bg-white">
+                        <SelectValue placeholder="Select max price" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent
+                      className="bg-white"
+                      form={form}
+                      fieldName={field.name}
+                      fieldValue={field.value}
+                    >
+                      {priceRangeData(false).map(({ key, value }) => (
+                        <SelectItem value={value} key={key}>
+                          {value}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
             <Button
               title="Save"
               type="submit"
               form="filters"
               onClick={form.handleSubmit(onSubmit)}
-              style={{ marginTop: '1.5rem' }}
+              className="px-12 sm:w-6/12 sm:!mt-7"
             />
           </form>
         </Form>

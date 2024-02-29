@@ -1,22 +1,27 @@
 import { Listing } from '@prisma/client';
 import { create } from 'zustand';
+import { FiltersProps } from '../(pages)/search-results/Filters';
 
 const listingsStore = (set: any) => ({
-  listings: [],
+  listings: [] as Listing[],
   totalListings: null,
-  totalPages: 0,
   currentPage: 1,
   loading: false,
   error: false,
+  listingsNotFound: false,
+  filters: {
+    bedrooms: null,
+    priceMin: null,
+    priceMax: null
+  } as FiltersProps,
   setCurrentPage: (page: number) => {
     set(() => ({
       currentPage: page
     }));
   },
-  addListings: (list: Listing[], pages: number) => {
+  addListings: (list: Listing[]) => {
     set(() => ({
-      listings: list,
-      totalPages: pages
+      listings: list
     }));
   },
   setLoading: (loading: boolean) => {
@@ -32,6 +37,16 @@ const listingsStore = (set: any) => ({
   setTotalListings: (total: number) => {
     set(() => ({
       totalListings: total
+    }));
+  },
+  setListingsNotFound: (value: boolean) => {
+    set(() => ({
+      listingsNotFound: value
+    }));
+  },
+  setFilters: (filters: FiltersProps) => {
+    set(() => ({
+      filters: filters
     }));
   }
 });

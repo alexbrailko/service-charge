@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { cn } from '@/app/helpers/utils';
+import { UseFormReturn } from 'react-hook-form';
 
 const Select = SelectPrimitive.Root;
 
@@ -19,29 +20,34 @@ interface SelectTriggerProps extends SelectPrimitive.SelectTriggerProps {
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, children, fieldName, fieldValue, ...props }, ref) => {
-  console.log('fieldValue', fieldValue);
+>(({ className, children, fieldName, fieldValue, form, ...props }, ref) => {
+  form = form;
 
   return (
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        'flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-[13px] text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none  focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        'relative flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-[13px] text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none  focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
         className
       )}
       {...props}
     >
       {children}
-      <X
-        className="h-5 w-5"
-        color="var(--highlight-secondary)"
-        onClick={() => {
-          console.log('X');
-        }}
-      />
+
       <SelectPrimitive.Icon asChild>
-        {/* <ChevronDown className="h-5 w-5" color="var(--highlight-secondary)" /> */}
+        <ChevronDown
+          className="h-5 w-5 ml-2"
+          color="var(--highlight-secondary)"
+        />
       </SelectPrimitive.Icon>
+      {/* <button className="h-5 w-5 absolute right-[5px] top-[10px] z-50">
+        <X
+          color="var(--highlight-secondary)"
+          onClick={() => {
+            console.log('X');
+          }}
+        />
+      </button> */}
     </SelectPrimitive.Trigger>
   );
 });
@@ -83,36 +89,69 @@ const SelectScrollDownButton = React.forwardRef<
 SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName;
 
+interface SelectContentProps extends SelectPrimitive.SelectContentProps {
+  fieldName?: string;
+  fieldValue?: string;
+  form?: UseFormReturn<any>;
+}
+
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = 'popper', ...props }, ref) => (
-  <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
-      ref={ref}
-      className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-        position === 'popper' &&
-          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
-        className
-      )}
-      position={position}
-      {...props}
-    >
-      <SelectScrollUpButton />
-      <SelectPrimitive.Viewport
-        className={cn(
-          'p-1',
-          position === 'popper' &&
-            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
-        )}
-      >
-        {children}
-      </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
-    </SelectPrimitive.Content>
-  </SelectPrimitive.Portal>
-));
+  SelectContentProps
+>(
+  (
+    {
+      className,
+      children,
+      position = 'popper',
+      form,
+      fieldName = '',
+      fieldValue,
+      ...props
+    },
+    ref
+  ) => {
+    React.useEffect(() => {
+      if (fieldValue === 'none') {
+        form?.setValue(fieldName, '');
+      }
+    }, [fieldValue]);
+
+    return (
+      <SelectPrimitive.Portal>
+        <SelectPrimitive.Content
+          ref={ref}
+          className={cn(
+            'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+            position === 'popper' &&
+              'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+            className
+          )}
+          position={position}
+          {...props}
+        >
+          <SelectScrollUpButton />
+          <SelectPrimitive.Viewport
+            className={cn(
+              'p-1',
+              position === 'popper' &&
+                'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
+            )}
+          >
+            {fieldValue && (
+              <SelectItem value="none" key="-">
+                None
+              </SelectItem>
+            )}
+
+            {children}
+          </SelectPrimitive.Viewport>
+          <SelectScrollDownButton />
+        </SelectPrimitive.Content>
+      </SelectPrimitive.Portal>
+    );
+  }
+);
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<

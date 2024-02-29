@@ -1,11 +1,8 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useListingsStore } from '@/app/store/listings';
 import SearchIcon from '@/app/images/svg/SearchIcon';
-// import { valid_postcode } from '@/app/helpers/validation';
-// import config from '../../../../tailwind.config';
-import { getListingsResults } from '@/app/queries/listingsActions';
 import {
   Form,
   FormControl,
@@ -26,39 +23,26 @@ const schema = z.object({
   address: z.string().min(3, { message: validationMessages.minMessage(3) })
 });
 
-export const SearchForm: FC = () => {
-  const addListings = useListingsStore((state) => state.addListings);
+interface SearchFormProps {
+  address: string;
+}
+
+export const SearchForm: FC<SearchFormProps> = ({ address }) => {
   const setIsLoading = useListingsStore((state) => state.setLoading);
   const loading = useListingsStore((state) => state.loading);
-  const setListingsError = useListingsStore((state) => state.setError);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      address: ''
+      address: address ? address : ''
     }
   });
 
   const submitPostcode = async (values: z.infer<typeof schema>) => {
     const { address } = values;
-    console.log('address', address);
-
-    try {
-      setIsLoading(true);
-
-      const results = await getListingsResults(address);
-
-      //console.log('results', results);
-      //router.replace();
-      router.push(`/search-results/${encodeURIComponent(address)}`);
-
-      addListings(results, 0);
-      setIsLoading(false);
-    } catch (e) {
-      setIsLoading(false);
-      setListingsError(true);
-    }
+    setIsLoading(true);
+    router.push(`/search-results/${encodeURIComponent(address.trim())}`);
   };
 
   return (

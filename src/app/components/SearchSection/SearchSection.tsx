@@ -3,9 +3,11 @@
 import React, { FC } from 'react';
 import { SearchForm } from './SearchForm';
 
-interface SearchSectionProps {}
+interface SearchSectionProps {
+  address?: string;
+}
 
-export const SearchSection: FC<SearchSectionProps> = ({}) => {
+export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
   return (
     <div className="h-[487px] bg-[url('/search-bg.jpg')] sm:bg-[url('/search-bg-mob.jpg')]">
       <div className="container pt-4 pb-2 h-[100%] flex items-center">
@@ -17,7 +19,7 @@ export const SearchSection: FC<SearchSectionProps> = ({}) => {
             Whether you`re buying your house, planning to invest in UK property
             market or looking to optimise your service charge spending
           </p>
-          <SearchForm />
+          <SearchForm address={address} />
         </div>
       </div>
     </div>
