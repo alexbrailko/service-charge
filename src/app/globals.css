@@ -39,6 +39,7 @@ h4 {
   line-height: 1.3;
 }
 
+h1,
 h2 {
   font-size: 40px;
   line-height: 52px;
@@ -55,6 +56,11 @@ h3 {
   margin-bottom: 0.9rem;
 }
 
+.image-gallery.full .image-gallery-slides {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
 .image-gallery-slides {
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
@@ -67,7 +73,13 @@ h3 {
 }
 
 .image-gallery-content:not(.fullscreen) .image-gallery-slides {
-  height: 270px;
+  height: 230px;
+}
+
+.image-gallery.full
+  .image-gallery-content:not(.fullscreen)
+  .image-gallery-slides {
+  height: 419px;
 }
 
 .image-gallery-slide,
@@ -95,6 +107,14 @@ h3 {
   border-radius: var(--border-radius);
   width: 500px;
   max-width: 90%;
+}
+
+.modal.full {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  padding: 0;
+  border-radius: 0;
 }
 
 .modal:focus-visible {

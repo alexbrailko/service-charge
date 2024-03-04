@@ -1,7 +1,6 @@
 import { SearchSection } from '@/app/components/SearchSection/SearchSection';
 import React, { FC } from 'react';
 import { Filters } from './Filters';
-import { ListingsList } from './ListingsList';
 import { ListingsContainer } from './ListingsContainer';
 
 interface SearchResultsPageProps {
@@ -14,7 +13,7 @@ const SearchResultsParamPage: FC<SearchResultsPageProps> = ({ params }) => {
   return (
     <>
       <SearchSection address={address} />
-      <Filters address={address} />
+      <Filters />
       <ListingsContainer address={address} />
     </>
   );

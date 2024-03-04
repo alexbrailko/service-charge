@@ -4,6 +4,7 @@ import { ListingsList } from './ListingsList';
 import { useListingsStore } from '@/app/store/listings';
 import { getListingsResults } from '@/app/queries/listingsActions';
 import { FiltersProps } from './Filters';
+import { objHasValue } from '@/app/helpers/utils';
 
 interface ListingsContainerProps {
   address: string;
@@ -20,6 +21,7 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
   );
   const isLoading = useListingsStore((state) => state.loading);
   const filters = useListingsStore((state) => state.filters);
+  const setCurrentPage = useListingsStore((state) => state.setCurrentPage);
 
   const getListings = async (address: string, filters?: FiltersProps) => {
     try {
@@ -45,11 +47,11 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
   }, [address]);
 
   useEffect(() => {
-    const hasValue = Object.values(filters).some(
-      (value) => value !== null && value !== undefined
-    );
+    const hasValue = objHasValue(filters);
+
     if (hasValue) {
       getListings(address, filters);
+      setCurrentPage(1);
     }
     getListings(address, filters);
   }, [filters]);

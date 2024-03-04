@@ -14,15 +14,11 @@ export const ListingCard: FC<Listing> = ({
   listingPrice,
   beds,
   baths,
-  address,
   addressFull,
   serviceCharge,
   groundRent,
-  datePosted,
   pictures,
-  url,
   area,
-  postCode,
   id
 }) => {
   const pics = useMemo(() => {

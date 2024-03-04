@@ -20,7 +20,7 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // take listing from local storage
+  // take listing from local state
   useEffect(() => {
     if (listings.length) {
       const l = listings.filter((l) => l.id === listingId);

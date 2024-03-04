@@ -39,10 +39,12 @@ export const SearchForm: FC<SearchFormProps> = ({ address }) => {
     }
   });
 
-  const submitPostcode = async (values: z.infer<typeof schema>) => {
-    const { address } = values;
-    setIsLoading(true);
-    router.push(`/search-results/${encodeURIComponent(address.trim())}`);
+  const formSubmit = async (values: z.infer<typeof schema>) => {
+    if (values.address !== address) {
+      setIsLoading(true);
+    }
+
+    router.push(`/search-results/${encodeURIComponent(values.address.trim())}`);
   };
 
   return (
@@ -69,7 +71,7 @@ export const SearchForm: FC<SearchFormProps> = ({ address }) => {
                       <Button
                         title="Search"
                         className="min-w-[102px] xs:w-[100%] xs:mt-2"
-                        onClick={form.handleSubmit(submitPostcode)}
+                        onClick={form.handleSubmit(formSubmit)}
                         isLoading={loading}
                       />
                     </div>

@@ -17,7 +17,7 @@ import {
 import { bedroomsData, priceRangeData } from '@/app/helpers/filters';
 import { useListingsStore } from '@/app/store/listings';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -33,13 +33,10 @@ export interface FiltersProps {
   priceMax?: number | null;
 }
 
-interface FiltersComponentProps {
-  address: string;
-}
+interface FiltersComponentProps {}
 
-export const Filters: FC<FiltersComponentProps> = ({ address }) => {
+export const Filters: FC<FiltersComponentProps> = ({}) => {
   const setFilters = useListingsStore((state) => state.setFilters);
-
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -48,6 +45,12 @@ export const Filters: FC<FiltersComponentProps> = ({ address }) => {
       priceMax: ''
     }
   });
+
+  useEffect(() => {
+    return () => {
+      setFilters({});
+    };
+  }, []);
 
   async function onSubmit(values: z.infer<typeof schema>) {
     const filters = {

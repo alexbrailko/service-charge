@@ -3,12 +3,20 @@ import {
   GoogleMap,
   MarkerF,
   useJsApiLoader,
-  InfoWindowF
+  InfoWindowF,
+  Marker
 } from '@react-google-maps/api';
 import { Listing } from '@prisma/client';
+import { PinIcon } from '@/app/images/svg/PinIcon';
+import { numberWithCommas } from '@/app/helpers/listings';
 
 interface MapProps {
   markers: Listing[];
+  singleMarker?: boolean;
+  zoom?: number;
+  height?: string;
+  borderRadius?: string;
+  fullScreenButton?: boolean;
 }
 
 const calculateCenter = (markers: Listing[]) => {
@@ -35,7 +43,14 @@ const calculateCenter = (markers: Listing[]) => {
   };
 };
 
-export const Map: FC<MapProps> = ({ markers }) => {
+export const Map: FC<MapProps> = ({
+  markers,
+  singleMarker,
+  zoom = 10,
+  height = '237px',
+  borderRadius,
+  fullScreenButton = true
+}) => {
   const [map, setMap] = React.useState<google.maps.Map>();
   const [selectedMarker, setSelectedMarker] = useState<Listing | null>(null);
 
@@ -57,7 +72,7 @@ export const Map: FC<MapProps> = ({ markers }) => {
         );
       }
 
-      map.fitBounds(bounds);
+      if (!singleMarker) map.fitBounds(bounds);
 
       setMap(map);
     },
@@ -70,15 +85,17 @@ export const Map: FC<MapProps> = ({ markers }) => {
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={{ width: '100%', height: '270px' }}
+      mapContainerStyle={{ width: '100%', height: height, borderRadius }}
       center={calculateCenter(markers)}
-      zoom={10}
-      // options={{
-      //   restriction: {
-      //     latLngBounds: calculateBounds(markers),
-      //     strictBounds: false
-      //   }
-      // }}
+      zoom={zoom}
+      options={{
+        streetViewControl: false,
+        fullscreenControl: fullScreenButton
+        // restriction: {
+        //   latLngBounds: calculateBounds(markers),
+        //   strictBounds: false
+        // }
+      }}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
@@ -89,16 +106,24 @@ export const Map: FC<MapProps> = ({ markers }) => {
             key={marker.id}
             position={{ lat: Number(coords[0]), lng: Number(coords[1]) }}
             onClick={() => setSelectedMarker(marker)}
+            options={{
+              icon: '/pin.png'
+            }}
           >
             {selectedMarker === marker && (
               <InfoWindowF onCloseClick={() => setSelectedMarker(null)}>
-                <div>
+                <div className="px-2">
                   <div>Address: {marker.address}</div>
-                  <div>Price: {marker.listingPrice}</div>
+                  <div className="my-1">
+                    Price: £{numberWithCommas(marker.listingPrice)}
+                  </div>
 
-                  <div>Service charge: {marker.serviceCharge}</div>
+                  <div>
+                    Service charge: £{marker.serviceCharge}
+                    {' (per year)'}
+                  </div>
                   {marker.groundRent && (
-                    <div>Ground rent: {marker.groundRent}</div>
+                    <div>Ground rent: £{marker.groundRent}</div>
                   )}
                 </div>
               </InfoWindowF>
@@ -110,6 +135,6 @@ export const Map: FC<MapProps> = ({ markers }) => {
       <></>
     </GoogleMap>
   ) : (
-    <div style={{ minHeight: 270 }} />
+    <div style={{ minHeight: height }} />
   );
 };

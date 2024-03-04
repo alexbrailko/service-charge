@@ -52,13 +52,8 @@ const listingsStore = (set: any, get: any) => ({
   },
   getListing: (id: Listing['id']) => {
     const listing = get().listings.filter((l: Listing) => l.id === id);
-    console.log('!!!', listing);
 
     return listing ? listing : null;
-
-    // set(() => ({
-    //   selectedListing: listing ? listing : null
-    // }));
   }
 });
 
