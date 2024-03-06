@@ -2,6 +2,7 @@
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Resend } from 'resend';
 
 import { ContactUsIcon } from '../images/svg/ContactUsIcon';
 import { Button } from './ui/Button';
@@ -22,10 +23,12 @@ import { useRouter } from 'next/navigation';
 import { cn } from '../helpers/utils';
 import { useGlobalstore } from '../store/globals';
 import { validationMessages } from '../helpers/validation';
+import { Textarea } from './ui/form/Textarea';
 
 const schema = z.object({
   name: z.string().min(3, validationMessages.minMessage(3)),
-  email: z.string().email(validationMessages.emailInvalid)
+  email: z.string().email(validationMessages.emailInvalid),
+  message: z.string()
 });
 
 interface ContactUsProps {
@@ -52,13 +55,34 @@ export const ContactUs: FC<ContactUsProps> = ({ className, style }) => {
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
-      email: ''
+      email: '',
+      message: ''
     }
   });
 
   async function onSubmit(values: z.infer<typeof schema>) {
-    console.log(values);
-    setFormSuccessMessage(FORM_SUBMIT_SUCCESS);
+    const resend = new Resend(process.env.RESEND_API_KEY || '');
+
+    try {
+      await resend.emails.send({
+        from: 'Service Charge Contact Form <info@service-charge.co.uk>',
+        to: 'alexbrailko@gmail.com',
+        subject: 'Hello World',
+        html: `<body>
+          <h2>Message from contact form:</h2>
+          <p>Name: ${values.name}</p>
+          <p>Email: ${values.email}</p>
+          <p>Message: <br> ${values.message}</p>
+        </body>`
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*'
+        // }
+      });
+      setFormSuccessMessage(FORM_SUBMIT_SUCCESS);
+    } catch (e) {
+      setFormSuccessMessage(FORM_SUBMIT_FAIL);
+    }
+
     form.reset();
     router.refresh();
   }
@@ -115,6 +139,19 @@ export const ContactUs: FC<ContactUsProps> = ({ className, style }) => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Message</FormLabel>
+                    <FormControl>
+                      <Textarea {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
