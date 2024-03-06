@@ -31,6 +31,8 @@ const schema = z.object({
   message: z.string()
 });
 
+const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY || '');
+
 interface ContactUsProps {
   className?: string;
   style?: React.CSSProperties;
@@ -61,8 +63,6 @@ export const ContactUs: FC<ContactUsProps> = ({ className, style }) => {
   });
 
   async function onSubmit(values: z.infer<typeof schema>) {
-    const resend = new Resend(process.env.RESEND_API_KEY || '');
-
     try {
       await resend.emails.send({
         from: 'Service Charge Contact Form <info@service-charge.co.uk>',
