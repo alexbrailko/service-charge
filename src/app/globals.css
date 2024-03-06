@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import '~react-image-gallery/styles/css/image-gallery.css';
-@import './fonts/stylesheet.css';
+/* @import './fonts/stylesheet.css'; */
 
 :root {
   --l: 50%;
@@ -50,7 +50,7 @@ h3 {
   line-height: 42px;
 }
 
-h3 {
+h4 {
   font-size: 22px;
   line-height: 29px;
   margin-bottom: 0.9rem;
@@ -216,6 +216,62 @@ h3 {
   cursor: default;
 }
 
+.single {
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
+
+.single h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.single h2 {
+  font-size: 32px;
+  line-height: 42px;
+  margin-bottom: 1.2rem;
+}
+
+.single h3 {
+  font-size: 24px;
+  line-height: 31px;
+  margin-bottom: 1rem;
+}
+
+.single p {
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.single ul {
+  list-style: disc;
+  padding-left: 40px;
+  margin-bottom: 1.5rem;
+}
+
+.single ol {
+  list-style: decimal;
+  padding-left: 40px;
+  margin-bottom: 1.5rem;
+}
+
+.single li {
+  margin-bottom: 1.5rem;
+}
+
+.single blockquote {
+  margin-bottom: 1.5rem;
+  background: var(--light);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  border-left: 10px solid var(--highlight);
+}
+
+.single a {
+  text-decoration: underline;
+}
+
 @media (max-width: 1199px) {
   .container {
     padding-left: 20px;
@@ -224,7 +280,33 @@ h3 {
 }
 
 @media (max-width: 767px) {
+  h1,
   h2 {
     font-size: 28px;
+    line-height: 36px;
+  }
+
+  h3 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  h4 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .single h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .single h2 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .single h3 {
+    font-size: 18px;
+    line-height: 24px;
   }
 }

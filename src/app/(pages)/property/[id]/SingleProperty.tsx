@@ -11,7 +11,7 @@ import ReactImageGallery from 'react-image-gallery';
 import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
 import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { numberWithCommas } from '@/app/helpers/listings';
-import { Map } from '@/app/components/SearchSection/Map';
+import { Map } from '@/app/components/Map';
 
 interface SinglePropertyProps {
   data: Listing;

@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import { SearchForm } from './SearchForm';
 import { usePathname } from 'next/navigation';
 import { MapMarkerIcon } from '@/app/images/svg/MapMarkerIcon';
-import { Map } from './Map';
+import { Map } from '../Map';
 import { useListingsStore } from '@/app/store/listings';
 import { Modal } from '../Modal';
 

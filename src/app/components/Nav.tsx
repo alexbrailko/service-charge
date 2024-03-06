@@ -15,7 +15,7 @@ export const Nav: FC<NavProps> = ({ className }) => {
         </Link>
       </li>
       <li>
-        <Link className="hover:underline" href="#">
+        <Link className="hover:underline" href="/resources">
           Valuable Resources and Tools for Real Estate Investors
         </Link>
       </li>

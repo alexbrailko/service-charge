@@ -50,7 +50,7 @@ export const Services: FC<ServicesProps> = ({}) => {
             />
             <div className="px-2 py-2 min-h-[100px] px-[27px] pt-[25px] pb-[26px] flex-1 flex flex-col">
               <div className="mb-[28px] flex: 1">
-                <h3>{title}</h3>
+                <h4>{title}</h4>
                 <div className="text-sm leading-[22px]">{description}</div>
               </div>
               <div>
