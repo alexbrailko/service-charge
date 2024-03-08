@@ -1,7 +1,7 @@
 import { ContactUsFormProps } from '../components/ContactUs';
 
 export async function emailContactUs(data: ContactUsFormProps) {
-  const url = `${process.env.NEXT_PUBLIC_DOMAIN_URL}/api/send/contact-us`;
+  const url = `/api/send/contact-us`;
 
   try {
     const response = await fetch(url, {

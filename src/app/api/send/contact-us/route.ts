@@ -8,11 +8,10 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
     await resend.emails.send({
-      from: 'Service Charge Contact Form <info@service-charge.co.uk>',
+      from: 'Service Charge Contact Form',
       to: 'alexbrailko@gmail.com',
-      subject: 'Hello World',
+      subject: 'Message from contact form',
       html: `<body>
-          <h2>Message from contact form:</h2>
           <p>Name: ${name}</p>
           <p>Email: ${email}</p>
           <p>Message: <br> ${message}</p>
