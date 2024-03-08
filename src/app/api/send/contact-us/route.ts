@@ -1,20 +1,19 @@
-import { ContactUsFormProps } from '@/app/components/ContactUs';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 export async function POST(req: Request) {
   try {
-    const { name, email, message }: ContactUsFormProps = await req.json();
+    const { email } = await req.json();
     const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
     await resend.emails.send({
-      from: 'Service Charge Contact Form',
+      from: 'onboarding@resend.dev',
       to: 'alexbrailko@gmail.com',
       subject: 'Message from contact form',
       html: `<body>
-          <p>Name: ${name}</p>
-          <p>Email: ${email}</p>
-          <p>Message: <br> ${message}</p>
+          <p>Name: ${email.name}</p>
+          <p>Email: ${email.email}</p>
+          <p>Message: <br> ${email.message}</p>
         </body>`
     });
 
