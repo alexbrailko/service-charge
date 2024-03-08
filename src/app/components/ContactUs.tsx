@@ -24,12 +24,15 @@ import { cn } from '../helpers/utils';
 import { useGlobalstore } from '../store/globals';
 import { validationMessages } from '../helpers/validation';
 import { Textarea } from './ui/form/Textarea';
+import { emailContactUs } from '../mail/contact';
 
 const schema = z.object({
   name: z.string().min(3, validationMessages.minMessage(3)),
   email: z.string().email(validationMessages.emailInvalid),
   message: z.string()
 });
+
+export type ContactUsFormProps = z.infer<typeof schema>;
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY || '');
 
@@ -53,7 +56,7 @@ export const ContactUs: FC<ContactUsProps> = ({ className, style }) => {
     setFormSuccessMessage('');
   };
 
-  const form = useForm<z.infer<typeof schema>>({
+  const form = useForm<ContactUsFormProps>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
@@ -62,24 +65,12 @@ export const ContactUs: FC<ContactUsProps> = ({ className, style }) => {
     }
   });
 
-  async function onSubmit(values: z.infer<typeof schema>) {
+  async function onSubmit(values: ContactUsFormProps) {
     try {
-      await resend.emails.send({
-        from: 'Service Charge Contact Form <info@service-charge.co.uk>',
-        to: 'alexbrailko@gmail.com',
-        subject: 'Hello World',
-        html: `<body>
-          <h2>Message from contact form:</h2>
-          <p>Name: ${values.name}</p>
-          <p>Email: ${values.email}</p>
-          <p>Message: <br> ${values.message}</p>
-        </body>`
-        // headers: {
-        //   'Access-Control-Allow-Origin': '*'
-        // }
-      });
+      await emailContactUs(values);
       setFormSuccessMessage(FORM_SUBMIT_SUCCESS);
     } catch (e) {
+      console.log('Error', e);
       setFormSuccessMessage(FORM_SUBMIT_FAIL);
     }
 
