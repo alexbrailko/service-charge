@@ -1,10 +1,11 @@
 'use client';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { ListingsList } from './ListingsList';
 import { useListingsStore } from '@/app/store/listings';
 import { getListingsResults } from '@/app/queries/listingsActions';
 import { FiltersProps } from './Filters';
 import { objHasValue } from '@/app/helpers/utils';
+import { getMapPicture } from './getMapPicture';
 
 interface ListingsContainerProps {
   address: string;
@@ -21,12 +22,18 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
   );
   const isLoading = useListingsStore((state) => state.loading);
   const filters = useListingsStore((state) => state.filters);
+  const prevFiltersSelected = useRef(false);
   const setCurrentPage = useListingsStore((state) => state.setCurrentPage);
 
   const getListings = async (address: string, filters?: FiltersProps) => {
     try {
       setIsLoading(true);
       const results = await getListingsResults(address, filters);
+
+      for (const item of results) {
+        const picture = await getMapPicture(item.coordinates || '');
+        item.pictures = picture;
+      }
 
       if (!results.length) {
         setListingsNotFound(true);
@@ -50,10 +57,15 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
     const hasValue = objHasValue(filters);
 
     if (hasValue) {
-      getListings(address, filters);
       setCurrentPage(1);
+      getListings(address, filters);
+      prevFiltersSelected.current = true;
     }
-    getListings(address, filters);
+    if (!hasValue && prevFiltersSelected.current) {
+      setCurrentPage(1);
+      getListings(address);
+      prevFiltersSelected.current = false;
+    }
   }, [filters]);
 
   return (

@@ -6,6 +6,7 @@ import { Listing } from '@prisma/client';
 
 import React, { FC, useEffect, useState } from 'react';
 import { SingleProperty } from './SingleProperty';
+import { getMapPicture } from '../../search-results/[address]/getMapPicture';
 
 interface SinglePropertyContainerProps {
   listingId: string;
@@ -39,6 +40,11 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
       setLoading(true);
 
       const res = await getListingById(listingId);
+
+      if (res?.pictures) {
+        res.pictures = await getMapPicture(res?.coordinates || '');
+      }
+
       setLoading(false);
 
       if (!res) {

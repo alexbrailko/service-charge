@@ -12,6 +12,7 @@ import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
 import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { numberWithCommas } from '@/app/helpers/listings';
 import { Map } from '@/app/components/Map';
+import Image from 'next/image';
 
 interface SinglePropertyProps {
   data: Listing;
@@ -31,17 +32,19 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     pictures
   } = data;
 
-  const pics = useMemo(() => {
-    if (!pictures) return [];
+  // const pics = useMemo(() => {
+  //   if (!pictures) return [];
 
-    return JSON.parse(pictures).map((pic: any) => {
-      return {
-        original: pic.small.replace(/\s+/g, '').replace(':p', ''),
-        fullscreen: pic.large.replace(/\s+/g, '').replace(':p', ''),
-        loading: 'lazy'
-      };
-    });
-  }, [pictures]);
+  //   return JSON.parse(pictures).map((pic: any) => {
+  //     return {
+  //       original: pic.small.replace(/\s+/g, '').replace(':p', ''),
+  //       fullscreen: pic.large.replace(/\s+/g, '').replace(':p', ''),
+  //       loading: 'lazy'
+  //     };
+  //   });
+  // }, [pictures]);
+
+  console.log('pictures', pictures);
 
   return (
     <div className="mb-[70px]">
@@ -118,7 +121,15 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
           </div>
         </div>
         <div>
-          <ReactImageGallery
+          <img className="rounded-md" src={pictures} />
+          {/* <Image
+            src={pictures}
+            alt={title}
+            width={0}
+            height={0}
+            sizes="100vw"
+          /> */}
+          {/* <ReactImageGallery
             items={pics}
             showThumbnails={false}
             showPlayButton={false}
@@ -144,7 +155,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
                 <RightArrowIcon />
               </button>
             )}
-          />
+          /> */}
           <div className="mt-[20px]">
             <Map markers={[data]} singleMarker zoom={15} borderRadius="10px" />
           </div>
