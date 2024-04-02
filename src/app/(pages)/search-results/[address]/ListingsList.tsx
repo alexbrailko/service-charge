@@ -1,10 +1,9 @@
 'use client';
 import { useListingsStore } from '@/app/store/listings';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { ListingCard } from './ListingCard';
 import Pagination from '../../../components/ui/Pagination/Pagination';
 import { Listing } from '@prisma/client';
-import { objHasValue } from '@/app/helpers/utils';
 
 interface ListingsListProps {
   listings: Listing[];

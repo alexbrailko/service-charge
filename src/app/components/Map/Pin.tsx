@@ -1,6 +1,6 @@
+// 'use client';
+// import { numberWithCommas } from '@/app/helpers/listings';
 // import { Listing } from '@prisma/client';
-// import Image from 'next/image';
-// import Link from 'next/link';
 // import React, { FC } from 'react';
 // import { Marker, Popup } from 'react-leaflet';
 
@@ -10,17 +10,21 @@
 
 // export const Pin: FC<PinProps> = ({ item }) => {
 //   const coords = item.coordinates?.split(/\s*,\s*/) || [];
-//   const pic = item.pictures.split(',');
 
 //   return (
-//     <Marker position={[Number(coords[0]), Number(coords[1])]}>
+//     <Marker key={item.id} position={[Number(coords[0]), Number(coords[1])]}>
 //       <Popup>
-//         <div className="popupContainer">
-//           <Image src={pic[0]} alt={item.title} width={0} height={0} />
-
-//           <div className="textContainer">
-//             <Link href={`/${item.id}`}>{item.title}</Link>
+//         <div className="px-2">
+//           <div>Address: {item.address}</div>
+//           <div className="my-1">
+//             Price: £{numberWithCommas(item.listingPrice)}
 //           </div>
+
+//           <div>
+//             Service charge: £{item.serviceCharge}
+//             {' (per year)'}
+//           </div>
+//           {item.groundRent && <div>Ground rent: £{item.groundRent}</div>}
 //         </div>
 //       </Popup>
 //     </Marker>

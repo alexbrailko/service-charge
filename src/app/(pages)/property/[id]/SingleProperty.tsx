@@ -44,8 +44,6 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
   //   });
   // }, [pictures]);
 
-  console.log('pictures', pictures);
-
   return (
     <div className="mb-[70px]">
       <Breadcrumbs title={title} />
