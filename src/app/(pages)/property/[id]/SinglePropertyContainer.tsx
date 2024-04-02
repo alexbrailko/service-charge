@@ -41,7 +41,7 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
 
       const res = await getListingById(listingId);
 
-      if (res?.pictures) {
+      if (res && res?.pictures) {
         res.pictures = await getMapPicture(res?.coordinates || '');
       }
 
