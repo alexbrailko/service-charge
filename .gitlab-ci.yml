@@ -1,0 +1,28 @@
+stages:
+  - install
+  - build
+  - deploy
+
+before_script:
+  - apk update && apk add --no-cache nodejs npm
+
+cache:
+  paths:
+    - node_modules/
+
+install:
+  stage: install
+  script:
+    - npm install
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+deploy:
+  stage: deploy
+  script:
+    - scp -r -o StrictHostKeyChecking=no ./out/* root@77.37.120.17:/var/www/service-charge
+  only:
+    - main # Deploy only on pushes to the main branch
