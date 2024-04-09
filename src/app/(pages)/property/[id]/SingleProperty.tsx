@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { format } from 'date-fns';
 
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
@@ -7,12 +7,12 @@ import { PinIcon } from '@/app/images/svg/PinIcon';
 import { SquareIconBig } from '@/app/images/svg/SquareIconBig';
 import { BedroomIconBig } from '@/app/images/svg/BedroomIconBig';
 import { BathroomIconBig } from '@/app/images/svg/BathroomIconBig';
-import ReactImageGallery from 'react-image-gallery';
-import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
-import { RightArrowIcon } from '@/app/images/svg/RightArrow';
+// import ReactImageGallery from 'react-image-gallery';
+// import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
+// import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { numberWithCommas } from '@/app/helpers/listings';
 import { Map } from '@/app/components/Map';
-import Image from 'next/image';
+//import Image from 'next/image';
 
 interface SinglePropertyProps {
   data: Listing;
@@ -31,8 +31,6 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     groundRent,
     pictures
   } = data;
-
-  console.log('test');
 
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
