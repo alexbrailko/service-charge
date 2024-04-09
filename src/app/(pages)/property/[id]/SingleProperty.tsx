@@ -32,6 +32,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     pictures
   } = data;
 
+  console.log('test');
+
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
 
@@ -50,7 +52,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
       <div className="grid-cols-2 gap-[30px] grid mt-9 sm:block">
         <div>
           <div className="text-grey2 text-[15px mb-2">
-            Posted {format('2022-12-05T00:00:00.000Z', 'dd MMMM yyyy')}
+            Posted {format(datePosted, 'dd MMMM yyyy')}
           </div>
           <h1 className="sm:text-[28px] sm:leading-[42px]">{title}</h1>
           <div className="text-lg flex items-center mt-1">
