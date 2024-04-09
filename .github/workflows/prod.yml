@@ -26,3 +26,4 @@ jobs:
       - run: echo NEXT_PUBLIC_BING_API_KEY=${{ secrets.NEXT_PUBLIC_BING_API_KEY }} >> .env
       - run: echo NEXT_PUBLIC_RESEND_API_KEY=${{ secrets.NEXT_PUBLIC_RESEND_API_KEY }} >> .env
       - run: npm run build --if-present
+      - run: pm2 restart nextjs
