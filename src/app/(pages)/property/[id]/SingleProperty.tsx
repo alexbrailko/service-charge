@@ -32,6 +32,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     pictures
   } = data;
 
+  console.log('test');
+
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
 
