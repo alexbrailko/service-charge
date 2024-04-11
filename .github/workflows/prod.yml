@@ -1,12 +1,12 @@
-name: Node.js CI
+name: Deploy to Server
 
 on:
   push:
-    branches: ['main']
+    branches: [main]
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Or your preferred runner
 
     steps:
       - name: Cache Node.js modules
@@ -21,25 +21,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+      - uses: actions/checkout@v4 # Checkout code from repository
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21.7.2
+
+      - name: Install dependencies
+        run: npm install # Or yarn install
+
+      - name: Build Next.js app
+        run: npm run build # Or yarn build
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }} # Your server's IP address
-          port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }} # Your server's username
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your server's SSH private key
           script: |
             cd /var/www/service-charge
             git pull
             npm install
-            touch .env
-            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
-            echo NEXT_PUBLIC_GOOGLE_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }} >> .env
-            echo NEXT_PUBLIC_BING_API_KEY=${{ secrets.NEXT_PUBLIC_BING_API_KEY }} >> .env
-            echo NEXT_PUBLIC_RESEND_API_KEY=${{ secrets.NEXT_PUBLIC_RESEND_API_KEY }} >> .env
             npm run build
-            pm2 restart your-pm2-service-name # Replace with your PM2 service name
+            pm2 restart next.js
