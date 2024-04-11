@@ -21,7 +21,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Checkout
       - uses: actions/checkout@v4 # Checkout code from repository
 
       - name: Use Node.js
