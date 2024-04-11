@@ -41,6 +41,7 @@ jobs:
           username: ${{ secrets.USERNAME }} # Your server's username
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your server's SSH private key
           port: ${{ secrets.PORT }}
+          command_timeout: 200m
           script: |
             cd ../var/www/service-charge
             echo "1"
