@@ -34,7 +34,7 @@ jobs:
         run: rm .env
 
       - name: SSH Deploy
-        # Use the 'appleboy/ssh-action' action for SSH deployment
+        # Use the 'appleboy/ssh-action' action for SSH deployment.
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }} # Your server's IP address
