@@ -47,4 +47,4 @@ jobs:
             git pull
             npm install
             npm run build
-            pm2 restart next.js
+            pm2 restart nextjs
