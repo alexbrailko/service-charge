@@ -25,7 +25,7 @@ jobs:
           echo NEXT_PUBLIC_GOOGLE_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }} >> .env.build
           echo NEXT_PUBLIC_BING_API_KEY=${{ secrets.NEXT_PUBLIC_BING_API_KEY }} >> .env.build
           echo NEXT_PUBLIC_RESEND_API_KEY=${{ secrets.NEXT_PUBLIC_RESEND_API_KEY }} >> .env.build
-          dotenv -e .env.build  # Load variables from temporary file
+          dotenv -r .env.build  # Load variables from temporary file
 
       - name: Build Next.js app
         run: npm run build # Or yarn build
