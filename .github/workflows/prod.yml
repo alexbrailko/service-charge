@@ -9,18 +9,6 @@ jobs:
     runs-on: ubuntu-latest # Or your preferred runner
 
     steps:
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
       - uses: actions/checkout@v4 # Checkout code from repository
 
       - name: Use Node.js
@@ -30,6 +18,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install # Or yarn install
+
+      - name: Load environment variables
+        run: |
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env.build  # Create temporary .env file
+          echo NEXT_PUBLIC_GOOGLE_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }} >> .env.build
+          echo NEXT_PUBLIC_BING_API_KEY=${{ secrets.NEXT_PUBLIC_BING_API_KEY }} >> .env.build
+          echo NEXT_PUBLIC_RESEND_API_KEY=${{ secrets.NEXT_PUBLIC_RESEND_API_KEY }} >> .env.build
+          dotenv -e .env.build  # Load variables from temporary file
 
       - name: Build Next.js app
         run: npm run build # Or yarn build
@@ -42,8 +38,8 @@ jobs:
           username: ${{ secrets.USERNAME }} # Your server's username
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your server's SSH private key
           script: |
-            cd /var/www/service-charge
+            cd /root/../var/www/service-charge
             git pull
             npm install
             npm run build
-            pm2 restart next.js
+            pm2 restart your-pm2-service-name # Replace with your PM2 service name
