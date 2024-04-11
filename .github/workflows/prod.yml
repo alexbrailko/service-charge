@@ -42,7 +42,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your server's SSH private key
           port: ${{ secrets.PORT }}
           script: |
-            cd /root/../var/www/service-charge
+            cd /var/www/service-charge
             git pull
             npm install
             npm run build
