@@ -43,13 +43,4 @@ jobs:
           port: ${{ secrets.PORT }}
           command_timeout: 200m
           script: |
-            cd ../var/www/service-charge
             echo "1"
-            git pull
-            echo "2"
-            npm install
-            echo "3"
-            npm run build
-            echo "4"
-            pm2 restart your-pm2-service-name # Replace with your PM2 service name
-            echo "5"
