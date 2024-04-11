@@ -35,7 +35,7 @@ jobs:
 
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }} # Your server's IP address
           username: ${{ secrets.USERNAME }} # Your server's username
