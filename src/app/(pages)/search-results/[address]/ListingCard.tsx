@@ -18,7 +18,7 @@ export const ListingCard: FC<Listing> = ({
   addressFull,
   serviceCharge,
   groundRent,
-  title,
+  address,
   area,
   id
 }) => {
@@ -34,7 +34,7 @@ export const ListingCard: FC<Listing> = ({
   // }, [pictures]);
 
   const [imgSrc, setImgSrc] = useState(
-    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}/`
+    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
 
   const addressFullTrimmed = addressFull
@@ -50,12 +50,13 @@ export const ListingCard: FC<Listing> = ({
         <div>
           <Image
             src={imgSrc}
-            alt={title}
+            alt={address}
             width={0}
             height={0}
             sizes="100vw"
             style={{ width: '100%', height: 'auto' }} // optional
             className="rounded-md"
+            loading="lazy"
             onError={() => {
               setImgSrc('/image-not-found.png');
             }}

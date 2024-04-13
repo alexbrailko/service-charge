@@ -22,7 +22,6 @@ interface SinglePropertyProps {
 export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
   const {
     id,
-    title,
     address,
     datePosted,
     area,
@@ -30,13 +29,14 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     baths,
     listingPrice,
     serviceCharge,
-    groundRent,
-    pictures
+    groundRent
   } = data;
 
   const [imgSrc, setImgSrc] = useState(
-    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}/`
+    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
+
+  console.log('imgSrc', imgSrc);
 
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
@@ -52,13 +52,13 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
 
   return (
     <div className="mb-[70px]">
-      <Breadcrumbs title={title} />
+      <Breadcrumbs title={address} />
       <div className="grid-cols-2 gap-[30px] grid mt-9 sm:block">
         <div>
           <div className="text-grey2 text-[15px mb-2">
             Posted {format(datePosted, 'dd MMMM yyyy')}
           </div>
-          <h1 className="sm:text-[28px] sm:leading-[42px]">{title}</h1>
+          {/* <h1 className="sm:text-[28px] sm:leading-[42px]">{title}</h1> */}
           <div className="text-lg flex items-center mt-1">
             <PinIcon size="18" className="mr-[9px]" />
             {address}
@@ -127,12 +127,13 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
         <div>
           <Image
             src={imgSrc}
-            alt={title}
+            alt={address}
             width={0}
             height={0}
             sizes="100vw"
             style={{ width: '100%', height: 'auto' }} // optional
             className="rounded-md"
+            loading="lazy"
             onError={() => {
               setImgSrc('/image-not-found.png');
             }}
