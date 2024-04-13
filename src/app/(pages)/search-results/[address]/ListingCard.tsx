@@ -1,14 +1,15 @@
 import { numberWithCommas } from '@/app/helpers/listings';
 import { BathroomIcon } from '@/app/images/svg/BathroomIcon';
 import { BedroomIcon } from '@/app/images/svg/BedroomIcon';
-import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
 import { PinIcon } from '@/app/images/svg/PinIcon';
-import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { SquareIcon } from '@/app/images/svg/SquareIcon';
 import { Listing } from '@prisma/client';
+import Image from 'next/image';
 import Link from 'next/link';
-import React, { FC, useMemo } from 'react';
-import ImageGallery from 'react-image-gallery';
+import React, { FC, useState } from 'react';
+//import ImageGallery from 'react-image-gallery';
+//import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
+//import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 
 export const ListingCard: FC<Listing> = ({
   listingPrice,
@@ -17,7 +18,7 @@ export const ListingCard: FC<Listing> = ({
   addressFull,
   serviceCharge,
   groundRent,
-  pictures,
+  title,
   area,
   id
 }) => {
@@ -32,6 +33,10 @@ export const ListingCard: FC<Listing> = ({
   //   });
   // }, [pictures]);
 
+  const [imgSrc, setImgSrc] = useState(
+    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}/`
+  );
+
   const addressFullTrimmed = addressFull
     .replace(', England,', '')
     .replace('United Kingdom', '');
@@ -43,7 +48,19 @@ export const ListingCard: FC<Listing> = ({
         className=" flex-1 hover:bg-light transition-all duration-300"
       >
         <div>
-          <ImageGallery
+          <Image
+            src={imgSrc}
+            alt={title}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: '100%', height: 'auto' }} // optional
+            className="rounded-md"
+            onError={() => {
+              setImgSrc('/image-not-found.png');
+            }}
+          />
+          {/* <ImageGallery
             items={[
               {
                 original: pictures,
@@ -74,7 +91,7 @@ export const ListingCard: FC<Listing> = ({
                 <RightArrowIcon />
               </button>
             )}
-          />
+          /> */}
         </div>
 
         <div className="py-[20px] px-[26px]">

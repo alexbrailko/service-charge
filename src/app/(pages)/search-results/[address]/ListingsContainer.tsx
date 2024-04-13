@@ -5,7 +5,6 @@ import { useListingsStore } from '@/app/store/listings';
 import { getListingsResults } from '@/app/queries/listingsActions';
 import { FiltersProps } from './Filters';
 import { objHasValue } from '@/app/helpers/utils';
-import { getMapPicture } from './getMapPicture';
 
 interface ListingsContainerProps {
   address: string;
@@ -29,11 +28,6 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
     try {
       setIsLoading(true);
       const results = await getListingsResults(address, filters);
-
-      for (const item of results) {
-        const picture = await getMapPicture(item.coordinates || '');
-        item.pictures = picture;
-      }
 
       if (!results.length) {
         setListingsNotFound(true);

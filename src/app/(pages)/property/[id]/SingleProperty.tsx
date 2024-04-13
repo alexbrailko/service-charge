@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { format } from 'date-fns';
 
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
@@ -12,6 +12,7 @@ import { BathroomIconBig } from '@/app/images/svg/BathroomIconBig';
 // import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { numberWithCommas } from '@/app/helpers/listings';
 import { Map } from '@/app/components/Map';
+import Image from 'next/image';
 //import Image from 'next/image';
 
 interface SinglePropertyProps {
@@ -20,6 +21,7 @@ interface SinglePropertyProps {
 
 export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
   const {
+    id,
     title,
     address,
     datePosted,
@@ -31,6 +33,10 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     groundRent,
     pictures
   } = data;
+
+  const [imgSrc, setImgSrc] = useState(
+    `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}/`
+  );
 
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
@@ -119,14 +125,18 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
           </div>
         </div>
         <div>
-          <img className="rounded-md" src={pictures} />
-          {/* <Image
-            src={pictures}
+          <Image
+            src={imgSrc}
             alt={title}
             width={0}
             height={0}
             sizes="100vw"
-          /> */}
+            style={{ width: '100%', height: 'auto' }} // optional
+            className="rounded-md"
+            onError={() => {
+              setImgSrc('/image-not-found.png');
+            }}
+          />
           {/* <ReactImageGallery
             items={pics}
             showThumbnails={false}

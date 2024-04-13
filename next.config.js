@@ -9,6 +9,15 @@ const nextConfig = {
       //   permanent: true
       // }
     ];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '77.37.120.17',
+        port: ''
+      }
+    ]
   }
 };
 
