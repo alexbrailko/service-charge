@@ -34,6 +34,9 @@ const config: Config = {
         md: { min: '0px', max: '1199px' },
         tb: { min: '768px', max: '1199px' },
         lg: { min: '1200px' }
+      },
+      transitionProperty: {
+        height: 'height'
       }
     }
   },

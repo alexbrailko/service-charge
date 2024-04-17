@@ -5,7 +5,7 @@ import { FiltersProps } from '../(pages)/search-results/[address]/Filters';
 import { Listing } from '@prisma/client';
 
 export const getListingsResults = async (
-  addressFull: string,
+  address: string,
   filters?: FiltersProps
 ) => {
   const { bedrooms, priceMin, priceMax } = filters || {};
@@ -13,9 +13,10 @@ export const getListingsResults = async (
   try {
     const result = await prisma.listing.findMany({
       where: {
-        addressFull: {
-          contains: addressFull
-        },
+        OR: [
+          { addressFull: { contains: address } },
+          { address: { contains: address } }
+        ],
         ...(bedrooms && {
           beds: bedrooms
         }),
