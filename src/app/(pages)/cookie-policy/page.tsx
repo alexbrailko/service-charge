@@ -64,7 +64,7 @@ export default function CookiePolicy() {
           personalization on our website.
         </p>
         <p>
-          <b>Here's how to adjust cookie settings on popular browsers:</b>
+          <b>Here&apos;s how to adjust cookie settings on popular browsers:</b>
         </p>
         <ul>
           <li>
