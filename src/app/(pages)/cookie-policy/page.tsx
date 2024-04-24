@@ -11,10 +11,10 @@ export default function CookiePolicy() {
         <h3>Understanding How We Use Cookies on service-charge.co.uk </h3>
         <p>
           Our website uses cookies and similar tracking technologies
-          (collectively "cookies" in this policy) like pixels, plugins, scripts,
-          tags, and device fingerprinting. These cookies help us distinguish you
-          from other visitors and improve your overall experience on our
-          website.
+          (collectively &quot;cookies&quot; in this policy) like pixels,
+          plugins, scripts, tags, and device fingerprinting. These cookies help
+          us distinguish you from other visitors and improve your overall
+          experience on our website.
         </p>
         <p>
           <b>
@@ -50,7 +50,7 @@ export default function CookiePolicy() {
         <ul>
           <li>
             <b>Site performance cookies:</b> These help us optimize the
-            website's performance.
+            website&apos;s performance.
           </li>
           <li>
             <b>Third-party cookies:</b> These cookies are set by other services
@@ -115,8 +115,8 @@ export default function CookiePolicy() {
 
         <p>
           If you have any questions regarding this Cookie Policy, feel free to
-          contact us at info@service-charge.co.uk with "Cookie Policy" in the
-          subject line.
+          contact us at info@service-charge.co.uk with &quot;Cookie Policy&quot;
+          in the subject line.
         </p>
 
         <h3>Updates to this Cookie Policy</h3>
