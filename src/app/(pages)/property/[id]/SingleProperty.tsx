@@ -36,8 +36,6 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
 
-  console.log('imgSrc', imgSrc);
-
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
 

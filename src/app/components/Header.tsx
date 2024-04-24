@@ -28,15 +28,15 @@ export default function Header() {
         />
       </div>
       <div className={`${withBoxShadow && 'box-shadow'}`}>
-        <div className="bottom container py-5 flex items-center justify-between">
+        <div className="bottom container py-4 flex items-center justify-between">
           <div className="flex items-center">
             <a href="/">
               <LogoIcon />
             </a>
-            <hr className="w-[2px] h-[30px] bg-highlight mx-5 sm:hidden" />
+            {/* <hr className="w-[2px] h-[30px] bg-highlight mx-5 sm:hidden" />
             <div className="text-sm/[15px] sm:hidden">
               Service Charge checker & Database
-            </div>
+            </div> */}
           </div>
 
           <div className="flex">

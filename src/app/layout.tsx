@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+// import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Ads } from './components/Ads';
 import { cn } from './helpers/utils';
+import CookieBanner from './components/seo/CookieBanner';
 
 const daikon = localFont({
   src: [
@@ -95,12 +97,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/*  TODO <GoogleAnalytics GA_MEASUREMENT_ID="G-0000000000" /> */}
       <body className={cn(`h-screen flex flex-col`, daikon.className)}>
         <Header />
         <div className="mb-auto">{children}</div>
         <Ads />
 
         <Footer />
+
+        <CookieBanner />
+
         <div id="modal-root"></div>
       </body>
     </html>
