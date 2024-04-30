@@ -1,3 +1,4 @@
+import { modifyfullAddressString } from '@/app/helpers/common';
 import { numberWithCommas } from '@/app/helpers/listings';
 import { BathroomIcon } from '@/app/images/svg/BathroomIcon';
 import { BedroomIcon } from '@/app/images/svg/BedroomIcon';
@@ -36,10 +37,6 @@ export const ListingCard: FC<Listing> = ({
   const [imgSrc, setImgSrc] = useState(
     `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
-
-  const addressFullTrimmed = addressFull
-    .replace(', England,', '')
-    .replace('United Kingdom', '');
 
   return (
     <div className="rounded-md box-shadow flex flex-col">
@@ -103,7 +100,7 @@ export const ListingCard: FC<Listing> = ({
             <div className="mr-2 ">
               <PinIcon className="mt-[2px]" />
             </div>
-            {addressFullTrimmed}
+            {modifyfullAddressString(addressFull)}
           </div>
           <div className="text-base mt-3">
             Service charge:{' '}

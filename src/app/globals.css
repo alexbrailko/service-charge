@@ -93,10 +93,6 @@ h4 {
   object-fit: cover;
 }
 
-.leaflet-container {
-  height: 270px;
-}
-
 .box-shadow {
   box-shadow: 0px 4px 13px rgba(30, 35, 66, 0.11);
 }

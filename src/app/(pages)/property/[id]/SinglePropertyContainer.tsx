@@ -31,7 +31,7 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
         setListing(listing);
       }
     }
-  }, [listings]);
+  }, [listings, listingId]);
 
   // take listing from api
   useEffect(() => {
@@ -58,7 +58,7 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
     if (!listing) {
       getListing();
     }
-  }, [listing]);
+  }, [listing, error, listingId]);
 
   return (
     <div className="container">

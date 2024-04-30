@@ -33,7 +33,7 @@ export const Modal: FC<ModalProps> = ({
     >
       <CloseIcon
         onClick={closeModal}
-        className="absolute top-[15px] right-[15px] cursor-pointer z-50"
+        className="absolute top-[15px] right-[15px] cursor-pointer z-[999]"
         color={closeIconColor}
         size={closeIconSize}
       />

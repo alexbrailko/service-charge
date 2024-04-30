@@ -63,7 +63,7 @@ export const SearchForm: FC<SearchFormProps> = ({ address }) => {
                   <>
                     <input
                       type="text"
-                      className="block flex-1 border-0 py-6 pl-[60px] pr-[115px] xs:pr-5 text-dark placeholder:text-grey text-[15px] focus:ring-0 border-transparent focus:border-transparent focus-visible:outline-0 bg-white rounded w-full"
+                      className="block flex-1 border-0 py-6 pl-[60px] pr-[120px] xs:pr-5 text-dark placeholder:text-grey text-[15px] focus:ring-0 border-transparent focus:border-transparent focus-visible:outline-0 bg-white rounded w-full"
                       placeholder="Type location or postcode"
                       {...field}
                     />

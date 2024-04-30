@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
 import { format } from 'date-fns';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
 import { Listing } from '@prisma/client';
@@ -11,9 +13,12 @@ import { BathroomIconBig } from '@/app/images/svg/BathroomIconBig';
 // import { LeftArrowIcon } from '@/app/images/svg/LeftArrow';
 // import { RightArrowIcon } from '@/app/images/svg/RightArrow';
 import { numberWithCommas } from '@/app/helpers/listings';
-import { Map } from '@/app/components/Map';
-import Image from 'next/image';
-//import Image from 'next/image';
+import { modifyfullAddressString } from '@/app/helpers/common';
+
+const MapLeaflet = dynamic(() => import('@/app/components/Map/Map'), {
+  loading: () => <p>loading...</p>,
+  ssr: false
+});
 
 interface SinglePropertyProps {
   data: Listing;
@@ -22,7 +27,7 @@ interface SinglePropertyProps {
 export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
   const {
     id,
-    address,
+    addressFull,
     datePosted,
     area,
     beds,
@@ -35,6 +40,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
   const [imgSrc, setImgSrc] = useState(
     `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
+
+  const address = modifyfullAddressString(addressFull);
 
   // const pics = useMemo(() => {
   //   if (!pictures) return [];
@@ -57,8 +64,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             Posted {format(datePosted, 'dd MMMM yyyy')}
           </div>
           {/* <h1 className="sm:text-[28px] sm:leading-[42px]">{title}</h1> */}
-          <div className="text-lg flex items-center mt-1">
-            <PinIcon size="18" className="mr-[9px]" />
+          <div className="text-lg flex mt-1">
+            <PinIcon size="20" className="mr-[9px] mt-1" />
             {address}
           </div>
           <div className="flex items-center mt-5 mb-6 space-x-8">
@@ -131,7 +138,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             sizes="100vw"
             style={{ width: '100%', height: 'auto' }} // optional
             className="rounded-md"
-            loading="lazy"
+            //loading="lazy"
+            priority={true}
             onError={() => {
               setImgSrc('/image-not-found.png');
             }}
@@ -164,7 +172,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             )}
           /> */}
           <div className="mt-[20px]">
-            <Map markers={[data]} singleMarker zoom={15} borderRadius="10px" />
+            <MapLeaflet items={[data]} />
           </div>
         </div>
       </div>

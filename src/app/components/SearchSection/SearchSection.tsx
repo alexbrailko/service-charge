@@ -1,12 +1,18 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { SearchForm } from './SearchForm';
 import { usePathname } from 'next/navigation';
 import { MapMarkerIcon } from '@/app/images/svg/MapMarkerIcon';
-import { Map } from '../Map';
+import dynamic from 'next/dynamic';
+
 import { useListingsStore } from '@/app/store/listings';
+import { SearchForm } from './SearchForm';
 import { Modal } from '../Modal';
+
+const MapLeaflet = dynamic(() => import('@/app/components/Map/Map'), {
+  loading: () => <p>loading...</p>,
+  ssr: false
+});
 
 interface SearchSectionProps {
   address?: string;
@@ -65,7 +71,8 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
             closeIconColor="#000"
             closeIconSize="25"
           >
-            <Map markers={listings} height="100vh" fullScreenButton={false} />
+            {/* <Map markers={listings} height="100vh" fullScreenButton={false} /> */}
+            <MapLeaflet items={listings} style={'h-[100vh]'} />
           </Modal>
         </div>
       </div>
