@@ -12,7 +12,7 @@ export const getListingsResults = async (
 
   try {
     const result = await prisma.listing.findMany({
-      distinct: ['addressFull'],
+      //   distinct: ['addressFull'],
       where: {
         OR: [
           { addressFull: { contains: address } },
@@ -35,7 +35,16 @@ export const getListingsResults = async (
       }
     });
 
-    return result;
+    const filteredItems = result.filter((value, index, self) => {
+      return (
+        index ===
+        self.findIndex(
+          (t) => t.addressFull === value.addressFull && t.beds === value.beds
+        )
+      );
+    });
+
+    return filteredItems;
   } catch (e) {
     console.log('Error:', e);
     return [];
@@ -59,15 +68,17 @@ export const getListingById = async (id: string): Promise<Listing | null> => {
   }
 };
 
-export const getListingsByAddress = async (
-  address: string
+export const getListingsScHistory = async (
+  address: string,
+  beds: number
 ): Promise<Listing[]> => {
   try {
     const result = await prisma.listing.findMany({
       where: {
         addressFull: {
           contains: address
-        }
+        },
+        beds: beds
       },
       orderBy: {
         datePosted: 'desc'

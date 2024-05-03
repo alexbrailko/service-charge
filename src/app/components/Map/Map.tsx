@@ -1,7 +1,8 @@
 'use client';
 import { Listing } from '@prisma/client';
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import { LatLngBounds, Map } from 'leaflet';
 import { Pin } from './Pin';
 import 'leaflet/dist/leaflet.css';
@@ -53,9 +54,11 @@ const MapLeaflet: FC<MapProps> = ({ items, style, zoom = 18 }) => {
       // zoom={10}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {items.map((item) => (
-        <Pin item={item} key={item.id} />
-      ))}
+      <MarkerClusterGroup chunkedLoading>
+        {items.map((item) => (
+          <Pin item={item} key={item.id} />
+        ))}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 };

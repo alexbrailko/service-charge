@@ -1,21 +1,23 @@
 import { numberWithCommas } from '@/app/helpers/listings';
-import { getListingsByAddress } from '@/app/queries/listingsActions';
+import { getListingsScHistory } from '@/app/queries/listingsActions';
 import { Listing } from '@prisma/client';
 import { format } from 'date-fns';
 import React, { FC, useEffect, useState } from 'react';
 
 interface ServiceChargeHistoryProps {
   address: string;
+  beds: number;
 }
 
 export const ServiceChargeHistory: FC<ServiceChargeHistoryProps> = ({
-  address
+  address,
+  beds
 }) => {
   const [data, setData] = useState<Listing[]>([]);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await getListingsByAddress(address);
+      const res = await getListingsScHistory(address, beds);
 
       if (res.length) {
         const newArray = res.slice(1);

@@ -73,32 +73,21 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             {address}
           </div>
           <div className="flex items-center mt-5 mb-6 space-x-7 sm:space-x-0 sm:justify-between">
-            {area && (
-              <div className="flex items-center ">
-                <SquareIconBig />
-                <div className="ml-[10px] sm:ml-[6px]">
-                  <div className="font-bold text-[17px] sm:text-[16px] leading-[21px]">
-                    {area} sq. ft
-                  </div>
-                  <div className="text-[15px] sm:text-[14px] leading-[21px]">
-                    Square
-                  </div>
-                </div>
-              </div>
-            )}
-            {beds && (
-              <div className="flex items-center ">
-                <BedroomIconBig />
-                <div className="ml-[10px] sm:ml-[6px]">
+            <div className="flex items-center ">
+              <BedroomIconBig />
+              <div className="ml-[10px] sm:ml-[6px]">
+                {beds && (
                   <div className="font-bold text-[17px] sm:text-[16px] leading-[21px]">
                     {beds}
                   </div>
-                  <div className="text-[15px] sm:text-[14px] leading-[21px]">
-                    Bedroom
-                  </div>
+                )}
+
+                <div className="text-[15px] sm:text-[14px] leading-[21px]">
+                  {beds ? 'Bedroom' : 'Studio'}{' '}
                 </div>
               </div>
-            )}
+            </div>
+
             {baths && (
               <div className="flex items-center ">
                 <BathroomIconBig />
@@ -108,6 +97,19 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
                   </div>
                   <div className="text-[15px] sm:text-[14px] leading-[21px]">
                     Bathroom
+                  </div>
+                </div>
+              </div>
+            )}
+            {area && (
+              <div className="flex items-center ">
+                <SquareIconBig />
+                <div className="ml-[10px] sm:ml-[6px]">
+                  <div className="font-bold text-[17px] sm:text-[16px] leading-[21px]">
+                    {area} sq. ft
+                  </div>
+                  <div className="text-[15px] sm:text-[14px] leading-[21px]">
+                    Square
                   </div>
                 </div>
               </div>
@@ -141,7 +143,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
               </div>
             </div>
           </div>
-          <ServiceChargeHistory address={addressFull} />
+          <ServiceChargeHistory address={addressFull} beds={beds || 0} />
         </div>
         <div>
           <Image

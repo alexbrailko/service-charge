@@ -115,28 +115,21 @@ export const ListingCard: FC<Listing> = ({
             </div>
           ) : null}
           <div className="flex items-center mt-5 space-x-3">
-            {area && (
-              <div className="flex items-center ">
-                <SquareIcon />
-                <div className="ml-[8px]">
-                  <div className="font-bold text-[14px] leading-[17px]">
-                    {area} sq. ft
-                  </div>
-                  <div className="text-[12px] leading-[17px]">Square</div>
-                </div>
-              </div>
-            )}
-            {beds && (
-              <div className="flex items-center ">
-                <BedroomIcon />
-                <div className="ml-[8px]">
+            <div className="flex items-center ">
+              <BedroomIcon />
+              <div className="ml-[8px]">
+                {beds && (
                   <div className="font-bold text-[14px] leading-[17px]">
                     {beds}
                   </div>
-                  <div className="text-[12px] leading-[17px]">Bedroom</div>
+                )}
+
+                <div className="text-[12px] leading-[17px]">
+                  {beds ? 'Bedroom' : 'Studio'}{' '}
                 </div>
               </div>
-            )}
+            </div>
+
             {baths && (
               <div className="flex items-center ">
                 <BathroomIcon />
@@ -145,6 +138,17 @@ export const ListingCard: FC<Listing> = ({
                     {baths}
                   </div>
                   <div className="text-[12px] leading-[17px]">Bathroom</div>
+                </div>
+              </div>
+            )}
+            {area && (
+              <div className="flex items-center ">
+                <SquareIcon />
+                <div className="ml-[8px]">
+                  <div className="font-bold text-[14px] leading-[17px]">
+                    {area} sq. ft
+                  </div>
+                  <div className="text-[12px] leading-[17px]">Square</div>
                 </div>
               </div>
             )}
