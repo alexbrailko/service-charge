@@ -5,7 +5,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Ads } from './components/Ads';
+//import { Ads } from './components/Ads';
 import { cn } from './helpers/utils';
 import CookieBanner from './components/seo/CookieBanner';
 
@@ -101,7 +101,7 @@ export default function RootLayout({
       <body className={cn(`h-screen flex flex-col`, daikon.className)}>
         <Header />
         <div className="mb-auto">{children}</div>
-        <Ads />
+        {/* <Ads /> */}
 
         <Footer />
 

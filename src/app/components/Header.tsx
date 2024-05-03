@@ -28,7 +28,7 @@ export default function Header() {
         />
       </div>
       <div className={`${withBoxShadow && 'box-shadow'}`}>
-        <div className="bottom container py-4 flex items-center justify-between">
+        <div className="bottom container py-5 flex items-center justify-between">
           <div className="flex items-center">
             <a href="/">
               <LogoIcon />

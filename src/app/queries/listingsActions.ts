@@ -12,6 +12,7 @@ export const getListingsResults = async (
 
   try {
     const result = await prisma.listing.findMany({
+      distinct: ['addressFull'],
       where: {
         OR: [
           { addressFull: { contains: address } },
@@ -28,6 +29,9 @@ export const getListingsResults = async (
             lte: priceMax
           })
         }
+      },
+      orderBy: {
+        datePosted: 'desc'
       }
     });
 
@@ -52,5 +56,27 @@ export const getListingById = async (id: string): Promise<Listing | null> => {
   } catch (e) {
     console.log('Error:', e);
     return null;
+  }
+};
+
+export const getListingsByAddress = async (
+  address: string
+): Promise<Listing[]> => {
+  try {
+    const result = await prisma.listing.findMany({
+      where: {
+        addressFull: {
+          contains: address
+        }
+      },
+      orderBy: {
+        datePosted: 'desc'
+      }
+    });
+
+    return result;
+  } catch (e) {
+    console.log('Error:', e);
+    return [];
   }
 };

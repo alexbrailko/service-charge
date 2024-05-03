@@ -84,7 +84,7 @@ export const Filters: FC<FiltersComponentProps> = ({}) => {
           )}
         </button>
         <div
-          className={`sm:h-[0] sm:overflow-hidden transition-height duration-300 ease-in-out ${isFiltersOpen ? 'sm:h-[350px]' : ''}	`}
+          className={`sm:h-[0] flex justify-center sm:block sm:overflow-hidden transition-height duration-300 ease-in-out ${isFiltersOpen ? 'sm:h-[350px]' : ''}	`}
         >
           <Form {...form}>
             <form
@@ -193,7 +193,7 @@ export const Filters: FC<FiltersComponentProps> = ({}) => {
                 type="submit"
                 form="filters"
                 onClick={form.handleSubmit(onSubmit)}
-                className="px-12 sm:w-6/12 sm:!mt-7"
+                className="px-12 sm:!mt-7 sm:w-full"
               />
             </form>
           </Form>

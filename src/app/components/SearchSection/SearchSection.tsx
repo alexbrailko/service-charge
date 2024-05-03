@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MapMarkerIcon } from '@/app/images/svg/MapMarkerIcon';
 import dynamic from 'next/dynamic';
@@ -9,16 +9,15 @@ import { useListingsStore } from '@/app/store/listings';
 import { SearchForm } from './SearchForm';
 import { Modal } from '../Modal';
 
-const MapLeaflet = dynamic(() => import('@/app/components/Map/Map'), {
-  loading: () => <p>loading...</p>,
-  ssr: false
-});
-
 interface SearchSectionProps {
   address?: string;
 }
 
 export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
+  const MapLeaflet = useMemo(
+    () => dynamic(() => import('@/app/components/Map/Map'), { ssr: false }),
+    []
+  );
   const path = usePathname();
   const isSearchPage = path.includes('search-results');
 
