@@ -37,7 +37,7 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
               isSearchPage && 'mb-9'
             }`}
           >
-            {!isSearchPage && 'Service Charge checker & Database'}
+            {!isSearchPage && 'Service Charge finder & Database'}
             {isSearchPage && 'Search Results'}
           </h1>
           <p
@@ -70,7 +70,6 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
             closeIconColor="#000"
             closeIconSize="25"
           >
-            {/* <Map markers={listings} height="100vh" fullScreenButton={false} /> */}
             <MapLeaflet items={listings} style={'h-[100vh]'} />
           </Modal>
         </div>

@@ -1,6 +1,10 @@
+'use client';
+
+import React, { FC, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { cn } from '@/app/helpers/utils';
 import { LoadingIcon } from '@/app/images/svg/LoadingIcon';
-import React, { FC } from 'react';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,6 +12,7 @@ export interface ButtonProps
   fullWidth?: boolean;
   className?: string;
   isLoading?: boolean;
+  url?: string;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -16,8 +21,16 @@ export const Button: FC<ButtonProps> = ({
   children,
   className,
   isLoading,
+  url,
   ...props
 }) => {
+  const router = useRouter();
+
+  const onClick = () => {
+    if (url) {
+      router.push(url);
+    }
+  };
   return (
     <button
       className={cn(
@@ -25,6 +38,7 @@ export const Button: FC<ButtonProps> = ({
         className
       )}
       disabled={isLoading}
+      onClick={onClick}
       {...props}
     >
       {!isLoading ? (

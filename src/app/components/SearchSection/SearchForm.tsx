@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { validationMessages } from '@/app/helpers/validation';
 import { Button } from '../ui/Button';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/app/helpers/utils';
 
 // const postcode = res?.toString().replace(/\s+/g, '') || '';
 // const postcodeWithSpaces = postcode.replace(/^(.*)(\d)/, '$1 $2');
@@ -25,9 +26,15 @@ const schema = z.object({
 
 interface SearchFormProps {
   address: string;
+  modalView?: boolean;
+  afterSubmit?: () => void;
 }
 
-export const SearchForm: FC<SearchFormProps> = ({ address }) => {
+export const SearchForm: FC<SearchFormProps> = ({
+  address,
+  modalView,
+  afterSubmit = () => {}
+}) => {
   const setIsLoading = useListingsStore((state) => state.setLoading);
   const loading = useListingsStore((state) => state.loading);
   const router = useRouter();
@@ -43,6 +50,8 @@ export const SearchForm: FC<SearchFormProps> = ({ address }) => {
     if (values.address !== address) {
       setIsLoading(true);
     }
+
+    afterSubmit();
 
     router.push(`/search-results/${encodeURIComponent(values.address.trim())}`);
   };
@@ -63,14 +72,25 @@ export const SearchForm: FC<SearchFormProps> = ({ address }) => {
                   <>
                     <input
                       type="text"
-                      className="block flex-1 border-0 py-6 pl-[60px] pr-[120px] xs:pr-5 text-dark placeholder:text-grey text-[15px] focus:ring-0 border-transparent focus:border-transparent focus-visible:outline-0 bg-white rounded w-full"
+                      className={cn(
+                        'block flex-1 border-0 py-6 pl-[60px] pr-[120px] xs:pr-5 text-dark placeholder:text-grey text-[15px] focus:ring-0 border-transparent focus:border-transparent focus-visible:outline-0 bg-white rounded w-full',
+                        modalView && 'bg-light pr-5'
+                      )}
                       placeholder="Type location or postcode"
                       {...field}
                     />
-                    <div className="absolute top-[3px] right-[10px] xs:static">
+                    <div
+                      className={cn(
+                        'absolute top-[3px] right-[10px] xs:static',
+                        modalView && 'static'
+                      )}
+                    >
                       <Button
                         title="Search"
-                        className="min-w-[102px] xs:w-[100%] xs:mt-2"
+                        className={cn(
+                          'min-w-[102px] xs:w-[100%] xs:mt-2',
+                          modalView && 'w-[100%] mt-2'
+                        )}
                         onClick={form.handleSubmit(formSubmit)}
                         isLoading={loading}
                       />

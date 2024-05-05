@@ -9,73 +9,76 @@ export default function Resources() {
       <div className="single">
         <h1>{title}</h1>
         <p>
-          If you’re selling or renting out your home, you’ll need an Energy
-          Performance Certificate (EPC) for your property.
+          In this section, you will discover a range of professional tools
+          designed to assist with property market research and property
+          management in the United Kingdom. These resources encompass
+          informative portals that offer guidance on essential property
+          management legislation, convenient links to government portals
+          providing valuable information for property risk assessments, profit
+          calculators, browser extensions, podcasts dedicated to the property
+          industry, and much more.
         </p>
-        <p>
-          These reports were introduced by the government in 2007 to encourage
-          people to make their homes more energy efficient. This is because in
-          the UK, around 22% of carbon emissions come from our homes, from
-          things like heating, lighting, and running household appliances.
-        </p>
-        <p>
-          A home that scores highly on energy efficiency will lead to cheaper
-          bills. So it’s a good idea to check a property’s EPC when you’re
-          searching for a home on Rightmove. You can find the EPC under the
-          property description details, or ask the estate agent to provide you
-          with a copy. Here’s everything you need to know about EPCs:
-        </p>
-        <h2>What is an EPC report?</h2>
-        <p>
-          An EPC is a report drawn up by an accredited domestic energy assessor.
-          They’ll visit your home to check how much energy it takes to power the
-          property and keep it warm.
-        </p>
-        <h3>What does an Energy Performance Certificate check involve?</h3>
-        <p>
-          Potential sources of draughts, or where heat can escape, will be
-          assessed during this visit. This includes requirements like checking
-          how well insulated your floors and walls are, if you have double
-          or triple-glazed windows, and how much heat is retained in your home.
-        </p>
-        <blockquote>
-          Your home’s energy rating looks like the sticker you might find on a
-          fridge or a washing machine, and ranges from A (most efficient) to G
-          (least efficient).
-        </blockquote>
-        <h3>How can I check what the energy rating is for my property?</h3>
         <ul>
           <li>
-            If you’re not sure what your home’s current EPC rating is, don’t
-            worry, it’s easy to find. The government has set up a register of
-            EPC certificates, so if it has been assessed, you can look up the
-            rating online. If you live in England, Wales, or Northern Ireland
-            you can search for your EPC here. If you live in Scotland, you can
-            check here.
+            <a
+              href="https://www.nrla.org.uk/join?gad_source=1&gclid=EAIaIQobChMI7Iyas8yXgwMVmkRBAh0xaARcEAAYASAAEgLoWvD_BwE"
+              target="_blank"
+            >
+              Landlords association NRLA
+            </a>
           </li>
           <li>
-            If you’re not sure what your home’s current EPC rating is, don’t
-            worry, it’s easy to find. The government has set up a register of
-            EPC certificates, so if it has been assessed, you can look up the
-            rating online. If you live in England, Wales, or Northern Ireland
-            you can search for your EPC here. If you live in Scotland, you can
-            check here.
+            <a href="https://www.propertymark.co.uk/" target="_blank">
+              The professional body the foe the property sector ARLA
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://check-long-term-flood-risk.service.gov.uk/postcode"
+              target="_blank"
+            >
+              Check your long term flood risk
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://check-for-flooding.service.gov.uk/find-location"
+              target="_blank"
+            >
+              Check for flooding
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.propertysearchesdirect.co.uk/product-page/enhanced-search-pack"
+              target="_blank"
+            >
+              Searches package for property buyers
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://app.patma.co.uk/prospector/property-profit-and-yield-calculator/"
+              target="_blank"
+            >
+              Browser extension for property analytics & Buy-to-let Property
+              Profit and Tax Calculator
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.hometrack.com/latest-news/uk-house-price-index/"
+              target="_blank"
+            >
+              Track UK house prices
+            </a>
+          </li>
+          <li>
+            <a href="https://propertyhub.net/invest/" target="_blank">
+              Podcasts about the property investment
+            </a>
           </li>
         </ul>
-        <h3>How can I check what the energy rating is for my property?</h3>
-        <ol>
-          <li>
-            If you’re not sure what your home’s current EPC rating is, don’t
-            worry, it’s easy to find. The government has set up a register of
-            EPC certificates, so if it has been assessed, you can look up the
-            rating online. If you live in England, Wales, or Northern Ireland
-            you can search for your EPC here. If you live in Scotland, you can
-            check here.
-          </li>
-        </ol>
-        <p>
-          Go to <a href="">Link</a>
-        </p>
       </div>
     </div>
   );

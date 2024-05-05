@@ -116,12 +116,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             )}
           </div>
           <div className="bg-light rounded-md p-[15px] mb-5 flex text-base md:block">
-            <div className="flex items-center ml-7 basis-[50%] md:ml-0">
-              <div className="font-bold text-[42px] leading-[55px] sm:text-[32px] sm:leading-[43px]">
-                £{numberWithCommas(listingPrice)}
-              </div>
-            </div>
-            <div className="basis-[50%] border-l-[1px]	border-[#D2DCD9] pl-5 md:border-0 md:pl-0">
+            <div className="ml-7 basis-[50%] md:ml-0">
               <div>
                 Service charge:{' '}
                 <span className="font-bold">
@@ -140,6 +135,14 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
               )}
               <div className="text-[13px] text-[#8E8E99]">
                 Last update date: {format(datePosted, 'dd.MM.yyyy')}
+              </div>
+            </div>
+            <div className="basis-[50%] border-l-[1px]	border-[#D2DCD9] pl-5 md:border-0 md:pl-0 flex items-center">
+              <div>
+                <div className="text-[18px]">Property price</div>
+                <div className="text-[38px] leading-[50px] sm:text-[32px] sm:leading-[43px] font-bold">
+                  £{numberWithCommas(listingPrice)}
+                </div>
               </div>
             </div>
           </div>

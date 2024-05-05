@@ -93,8 +93,11 @@ export const ListingCard: FC<Listing> = ({
         </div>
 
         <div className="py-[20px] px-[26px]">
-          <div className="text-[22px] font-bold color-dark">
-            £{numberWithCommas(listingPrice)}
+          <div className="text-[18px] color-dark">
+            Service charge:{' '}
+            <span className="text-[18px] font-bold">
+              £{numberWithCommas(serviceCharge)}
+            </span>
           </div>
           <div className="flex text-[14px] mt-1">
             <div className="mr-2 ">
@@ -103,10 +106,8 @@ export const ListingCard: FC<Listing> = ({
             {modifyfullAddressString(addressFull)}
           </div>
           <div className="text-base mt-3">
-            Service charge:{' '}
-            <span className="font-bold">
-              £{numberWithCommas(serviceCharge)}
-            </span>
+            Property price:{' '}
+            <span className="font-bold">£{numberWithCommas(listingPrice)}</span>
           </div>
           {groundRent ? (
             <div className="text-base mt-0.5">

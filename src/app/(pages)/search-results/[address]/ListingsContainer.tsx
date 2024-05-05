@@ -28,7 +28,6 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
     try {
       setIsLoading(true);
       const results = await getListingsResults(address, filters);
-      console.log('results', results);
 
       if (!results.length) {
         setListingsNotFound(true);
