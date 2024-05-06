@@ -1,8 +1,14 @@
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
 
-export default function PropertyManagement() {
-  const title = 'Property & Block Management';
+const title = 'Property & Block Management';
 
+export const metadata = {
+  title: title,
+  description:
+    'Find property management companies or go it alone with helpful tools. Learn how to choose the right approach for your properties.'
+};
+
+export default function PropertyManagement() {
   return (
     <div className="container">
       <Breadcrumbs title={title} />

@@ -84,12 +84,6 @@ const daikon = localFont({
   ]
 });
 
-export const metadata: Metadata = {
-  title: 'Service Charge finder & Database',
-  description:
-    'Whether you`re buying your house, planning to invest in UK property market or looking to optimise your service charge spending'
-};
-
 export default function RootLayout({
   children
 }: {

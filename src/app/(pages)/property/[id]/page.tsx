@@ -1,25 +1,25 @@
 import { Metadata } from 'next';
 import React, { FC } from 'react';
 import { SinglePropertyContainer } from './SinglePropertyContainer';
-import { useListingsStore } from '@/app/store/listings';
+import { getListingById } from '@/app/queries/listingsActions';
 
 interface PropertyPageProps {
   params: { id: string };
 }
 
-// export async function generateMetadata({
-//   params
-// }: PropertyPageProps): Promise<Metadata> {
-//   // read route params
-//   const id = params.id;
+export async function generateMetadata({
+  params
+}: PropertyPageProps): Promise<Metadata> {
+  // read route params
+  const id = params.id;
 
-//   const listings = useListingsStore((state) => state.listings);
-//   const listing = listings.filter((l) => l.id === id);
+  const property = await getListingById(id);
 
-//   return {
-//     title: `Property - ${listing[0]}`
-//   };
-// }
+  return {
+    title: `Property at ${property?.addressFull}`,
+    description: `Service charge information for property at ${property?.addressFull}`
+  };
+}
 
 const PropertyPage: FC<PropertyPageProps> = async ({ params }) => {
   return <SinglePropertyContainer listingId={params.id} />;

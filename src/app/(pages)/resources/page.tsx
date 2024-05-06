@@ -1,8 +1,14 @@
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
 
-export default function Resources() {
-  const title = 'Valuable Resources and Tools for Real Estate Investors';
+const title = 'Valuable Resources and Tools for Real Estate Investors';
 
+export const metadata = {
+  title: title,
+  description:
+    'UK Property Investor Toolkit! Find resources for market research, management, legislation & more. Includes NRLA, ARLA, flood risk checks, calculators & podcasts.'
+};
+
+export default function Resources() {
   return (
     <div className="container">
       <Breadcrumbs title={title} />

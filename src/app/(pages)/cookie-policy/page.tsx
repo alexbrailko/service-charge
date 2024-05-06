@@ -1,8 +1,13 @@
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
 
-export default function CookiePolicy() {
-  const title = 'Cookie Policy';
+const title = 'Cookie Policy';
 
+export const metadata = {
+  title: title,
+  description: 'Website Cookie Policy'
+};
+
+export default function CookiePolicy() {
   return (
     <div className="container">
       <Breadcrumbs title={title} />

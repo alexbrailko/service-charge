@@ -1,8 +1,14 @@
 import { Breadcrumbs } from '@/app/components/ui/Breadcrumbs';
 
-export default function ServiceChargeFinder() {
-  const title = 'Service Charge Finder';
+const title = 'Service Charge Finder';
 
+export const metadata = {
+  title: title,
+  description:
+    'Confused by Leasehold Service Charges? Our FREE Service Charge Finder helps you estimate fees for any UK property by postcode. Know your costs before you buy!'
+};
+
+export default function ServiceChargeFinder() {
   return (
     <div className="container">
       <Breadcrumbs title={title} />
