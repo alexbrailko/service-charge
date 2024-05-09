@@ -1,21 +1,42 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
+import Mail from 'nodemailer/lib/mailer';
 
 export async function POST(req: Request) {
-  try {
-    const { email } = await req.json();
-    const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+  const { email } = await req.json();
 
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'alexbrailko@gmail.com',
-      subject: 'Message from contact form',
-      html: `<body>
-          <p>Name: ${email.name}</p>
-          <p>Email: ${email.email}</p>
-          <p>Message: <br> ${email.message}</p>
-        </body>`
+  const transport = nodemailer.createTransport({
+    host: 'mail.service-charge.co.uk',
+    auth: {
+      user: process.env.INFO_EMAIL,
+      pass: process.env.INFO_EMAIL_PASSWORD
+    }
+  });
+
+  const mailOptions: Mail.Options = {
+    from: process.env.MY_EMAIL,
+    to: process.env.MY_EMAIL,
+    subject: `Message from contact form`,
+    html: `<body>
+            <p>Name: ${email.name}</p>
+            <p>Email: ${email.email}</p>
+            <p>Message: <br> ${email.message}</p>
+          </body>`
+  };
+
+  const sendMailPromise = () =>
+    new Promise<string>((resolve, reject) => {
+      transport.sendMail(mailOptions, function (err) {
+        if (!err) {
+          resolve('Email sent');
+        } else {
+          reject(err.message);
+        }
+      });
     });
+
+  try {
+    await sendMailPromise();
 
     return NextResponse.json(
       {
