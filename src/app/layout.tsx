@@ -1,6 +1,5 @@
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-// import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import './globals.css';
 import Header from './components/Header';
@@ -91,7 +90,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*  TODO <GoogleAnalytics GA_MEASUREMENT_ID="G-0000000000" /> */}
+      <GoogleAnalytics gaId="G-2H2J56YWS4" />
       <body className={cn(`h-screen flex flex-col`, daikon.className)}>
         <Header />
         <div className="mb-auto">{children}</div>
