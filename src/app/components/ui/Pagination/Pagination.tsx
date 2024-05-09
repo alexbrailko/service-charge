@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import classnames from 'classnames';
+//import classnames from 'classnames';
 import { usePagination, DOTS } from './usePagination';
+import { cn } from '@/app/helpers/utils';
 
 interface PaginationProps {
   onPageChange: (page: number) => void;
@@ -43,11 +44,11 @@ const Pagination: FC<PaginationProps> = ({
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <ul className={classnames('flex list-none', { [className]: className })}>
+    <ul className={cn('flex list-none', { [className]: className })}>
       {/* Left navigation arrow */}
       {showArrows && (
         <li
-          className={classnames('pagination-item', {
+          className={cn('pagination-item', {
             disabled: currentPage === 1
           })}
           onClick={onPrevious}
@@ -70,7 +71,7 @@ const Pagination: FC<PaginationProps> = ({
         return (
           <li
             key={index + 1}
-            className={classnames('pagination-item', {
+            className={cn('pagination-item', {
               selected: pageNumber === currentPage
             })}
             onClick={() => onPageChange(pageNumber)}
@@ -82,7 +83,7 @@ const Pagination: FC<PaginationProps> = ({
       {/*  Right Navigation arrow */}
       {showArrows && (
         <li
-          className={classnames('pagination-item', {
+          className={cn('pagination-item', {
             disabled: currentPage === lastPage
           })}
           onClick={onNext}
