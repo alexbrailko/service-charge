@@ -2,7 +2,6 @@
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Resend } from 'resend';
 
 import { ContactUsIcon } from '../images/svg/ContactUsIcon';
 import { Button } from './ui/Button';
@@ -33,8 +32,6 @@ const schema = z.object({
 });
 
 export type ContactUsFormProps = z.infer<typeof schema>;
-
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY || '');
 
 interface ContactUsProps {
   className?: string;
