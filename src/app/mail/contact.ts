@@ -12,12 +12,16 @@ export async function emailContactUs(data: ContactUsFormProps) {
       body: JSON.stringify({ email: data })
     });
 
+    console.log('response', response);
+
     if (!response.ok) {
       throw new Error(
         'Failed to call "Contact us" API: ' + response.statusText
       );
     }
   } catch (error) {
+    console.log('Error', error);
+
     console.error(error instanceof Error ? error.message : error);
     return Promise.reject();
   }

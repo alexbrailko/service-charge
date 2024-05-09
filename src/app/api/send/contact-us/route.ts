@@ -7,6 +7,7 @@ export async function POST(req: Request) {
 
   const transport = nodemailer.createTransport({
     host: 'mail.service-charge.co.uk',
+    port: 587,
     auth: {
       user: process.env.INFO_EMAIL,
       pass: process.env.INFO_EMAIL_PASSWORD
@@ -14,8 +15,8 @@ export async function POST(req: Request) {
   });
 
   const mailOptions: Mail.Options = {
-    from: process.env.MY_EMAIL,
-    to: process.env.MY_EMAIL,
+    from: process.env.INFO_EMAIL,
+    to: process.env.INFO_EMAIL,
     subject: `Message from contact form`,
     html: `<body>
             <p>Name: ${email.name}</p>
@@ -45,10 +46,8 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error(
-      'Error sending email:',
-      error instanceof Error ? error.message : error
-    );
-    return NextResponse.json({ error: 'Error sending email' }, { status: 500 });
+    const err = error instanceof Error ? error.message : error;
+    console.error('Error sending email:', err);
+    return NextResponse.json({ error: err }, { status: 500 });
   }
 }
