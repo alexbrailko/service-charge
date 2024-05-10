@@ -42,6 +42,8 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
     `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
 
+  const [imageNotFound, setImageNotFound] = useState(false);
+
   const address = modifyfullAddressString(addressFull);
 
   // const pics = useMemo(() => {
@@ -149,20 +151,23 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
           <ServiceChargeHistory address={addressFull} beds={beds || 0} />
         </div>
         <div>
-          <Image
-            src={imgSrc}
-            alt={address}
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: '100%', height: 'auto' }} // optional
-            className="rounded-md"
-            //loading="lazy"
-            priority={true}
-            onError={() => {
-              setImgSrc('/image-not-found.png');
-            }}
-          />
+          {!imageNotFound && (
+            <Image
+              src={imgSrc}
+              alt={address}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }} // optional
+              className="rounded-md mb-[20px]"
+              //loading="lazy"
+              priority={true}
+              onError={() => {
+                setImageNotFound(true);
+              }}
+            />
+          )}
+
           {/* <ReactImageGallery
             items={pics}
             showThumbnails={false}
@@ -190,7 +195,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
               </button>
             )}
           /> */}
-          <div className="mt-[20px]">
+          <div className="">
             <MapLeaflet items={[data]} />
           </div>
         </div>
