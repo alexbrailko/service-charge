@@ -17,7 +17,11 @@ export async function generateMetadata({
 
   return {
     title: `Property at ${property?.addressFull}`,
-    description: `Service charge information for property at ${property?.addressFull}`
+    description: `Service charge information for property at ${property?.addressFull}`,
+    robots: {
+      index: false,
+      follow: true
+    }
   };
 }
 

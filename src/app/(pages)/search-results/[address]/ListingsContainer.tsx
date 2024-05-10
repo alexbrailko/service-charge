@@ -1,8 +1,12 @@
 'use client';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { ListingsList } from './ListingsList';
 import { useListingsStore } from '@/app/store/listings';
-import { getListingsResults } from '@/app/queries/listingsActions';
+import {
+  getClosestListings,
+  getCoordinatesByAddress,
+  getListingsResults
+} from '@/app/queries/listingsActions';
 import { FiltersProps } from './Filters';
 import { objHasValue } from '@/app/helpers/utils';
 
@@ -24,15 +28,27 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
   const prevFiltersSelected = useRef(false);
   const setCurrentPage = useListingsStore((state) => state.setCurrentPage);
 
+  const [closestListingsMessage, setClosestListingsMessage] = useState(false);
+
   const getListings = async (address: string, filters?: FiltersProps) => {
     try {
       setIsLoading(true);
-      const results = await getListingsResults(address, filters);
+      let results = await getListingsResults(address, filters);
 
       if (!results.length) {
-        setListingsNotFound(true);
+        const coords = await getCoordinatesByAddress(address);
+
+        if (coords) {
+          setClosestListingsMessage(true);
+          results = await getClosestListings(coords);
+        }
+
+        if (!coords) {
+          setListingsNotFound(true);
+        }
       } else {
         setListingsNotFound(false);
+        setClosestListingsMessage(false);
       }
 
       addListings(results);
@@ -67,6 +83,7 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
       listings={listings}
       isLoading={isLoading}
       listingsNotFound={listingsNotFound}
+      showClosestListingsMessage={closestListingsMessage}
     />
   );
 };

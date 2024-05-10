@@ -9,12 +9,14 @@ interface ListingsListProps {
   listings: Listing[];
   isLoading: boolean;
   listingsNotFound: boolean;
+  showClosestListingsMessage?: boolean;
 }
 
 export const ListingsList: FC<ListingsListProps> = ({
   listings,
   isLoading,
-  listingsNotFound
+  listingsNotFound,
+  showClosestListingsMessage
 }) => {
   const perPage = 6;
   const currentPage = useListingsStore((state) => state.currentPage);
@@ -31,6 +33,13 @@ export const ListingsList: FC<ListingsListProps> = ({
     <div className="container my-12">
       {isLoading && (
         <div className="text-center text-lg color-dark">Loading...</div>
+      )}
+
+      {showClosestListingsMessage && !isLoading && (
+        <div className="text-center text-lg color-dark mb-10">
+          We couldn't find the exact address, but there are some of the
+          properties nearby
+        </div>
       )}
 
       {!isLoading && !!listings.length && (

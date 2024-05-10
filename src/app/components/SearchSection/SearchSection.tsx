@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MapMarkerIcon } from '@/app/images/svg/MapMarkerIcon';
 import dynamic from 'next/dynamic';
@@ -8,6 +8,11 @@ import dynamic from 'next/dynamic';
 import { useListingsStore } from '@/app/store/listings';
 import { SearchForm } from './SearchForm';
 import { Modal } from '../Modal';
+import {
+  getAllListings,
+  getListingsResults
+} from '@/app/queries/listingsActions';
+import { Listing } from '@prisma/client';
 
 interface SearchSectionProps {
   address?: string;
@@ -22,7 +27,28 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
   const isSearchPage = path.includes('search-results');
 
   const [mapVisible, setMapVisible] = useState(false);
+  const [allListingsLoading, setAllListingsLoading] = useState(false);
   const listings = useListingsStore((state) => state.listings);
+  const [allListings, setAllListings] = useState<Listing[]>([]);
+
+  useEffect(() => {}, []);
+
+  const onMapButtonClick = async () => {
+    if (!listings.length) {
+      setAllListingsLoading(true);
+      // get all listings
+      const res = await getAllListings();
+
+      setAllListings(res);
+
+      if (res.length) {
+        setAllListingsLoading(false);
+        setMapVisible(true);
+      }
+    } else {
+      setMapVisible(true);
+    }
+  };
 
   return (
     <div
@@ -52,15 +78,28 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
           <SearchForm address={address} />
 
           {isSearchPage && address && (
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setMapVisible(true)}
-                className="flex items-center h-[52px] px-[29px] font-medium text-[15px] rounded-md border-[1px] border-white text-white hover:bg-grey transition-all duration-300"
-              >
-                <MapMarkerIcon className="mr-2" />
-                View results on map
-              </button>
-            </div>
+            <>
+              <div className="flex justify-center mt-8">
+                <button
+                  disabled={allListingsLoading}
+                  onClick={onMapButtonClick}
+                  className="flex items-center h-[52px] px-[29px] font-medium text-[15px] rounded-md border-[1px] border-white text-white hover:bg-grey transition-all duration-300"
+                >
+                  <MapMarkerIcon className="mr-2" />
+                  {listings.length
+                    ? 'View results on map'
+                    : 'View all properties on map'}
+                </button>
+              </div>
+              {allListingsLoading && (
+                <div
+                  id="form-item-message"
+                  className="text-md text-center mt-1 font-medium text-destructive"
+                >
+                  Loading...
+                </div>
+              )}
+            </>
           )}
 
           <Modal
@@ -70,7 +109,10 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
             closeIconColor="#000"
             closeIconSize="25"
           >
-            <MapLeaflet items={listings} style={'h-[100vh]'} />
+            <MapLeaflet
+              items={allListings.length ? allListings : listings}
+              style={'h-[100vh]'}
+            />
           </Modal>
         </div>
       </div>
