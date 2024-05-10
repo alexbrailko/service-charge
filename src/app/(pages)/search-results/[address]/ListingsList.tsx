@@ -37,7 +37,7 @@ export const ListingsList: FC<ListingsListProps> = ({
 
       {showClosestListingsMessage && !isLoading && (
         <div className="text-center text-lg color-dark mb-10">
-          We couldn't find the exact address, but there are some of the
+          While we couldn&apos;t find the exact address, there are some
           properties nearby
         </div>
       )}
