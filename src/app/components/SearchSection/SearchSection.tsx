@@ -30,8 +30,7 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
   const [allListingsLoading, setAllListingsLoading] = useState(false);
   const listings = useListingsStore((state) => state.listings);
   const [allListings, setAllListings] = useState<Listing[]>([]);
-
-  useEffect(() => {}, []);
+  const listingsNotFound = useListingsStore((state) => state.listingsNotFound);
 
   const onMapButtonClick = async () => {
     if (!listings.length) {
@@ -86,9 +85,10 @@ export const SearchSection: FC<SearchSectionProps> = ({ address = '' }) => {
                   className="flex items-center h-[52px] px-[29px] font-medium text-[15px] rounded-md border-[1px] border-white text-white hover:bg-grey transition-all duration-300"
                 >
                   <MapMarkerIcon className="mr-2" />
-                  {listings.length
-                    ? 'View results on map'
-                    : 'View all properties on map'}
+                  <span></span>
+                  {listingsNotFound
+                    ? 'View all properties on map'
+                    : 'View results on map'}
                 </button>
               </div>
               {allListingsLoading && (
