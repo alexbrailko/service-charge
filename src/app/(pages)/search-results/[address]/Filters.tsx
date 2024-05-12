@@ -59,7 +59,7 @@ export const Filters: FC<FiltersComponentProps> = ({}) => {
 
   async function onSubmit(values: z.infer<typeof schema>) {
     const filters = {
-      bedrooms: Number(values.bedrooms) || null,
+      bedrooms: values.bedrooms == '' ? undefined : Number(values.bedrooms),
       priceMin:
         Number(values.priceMin.replace(/,/g, '').replace(/£/g, '')) || null,
       priceMax:

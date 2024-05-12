@@ -1,0 +1,10 @@
+#!/bin/sh
+
+npm run build
+
+if [ $? -eq 0 ]; then
+  echo "Build successful, continuing with push."
+else
+  echo "Build failed! Fix errors and try again before pushing."
+  exit 1
+fi

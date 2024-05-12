@@ -8,7 +8,11 @@ export const getListingsResults = async (
   address: string,
   filters?: FiltersProps
 ) => {
-  const { bedrooms, priceMin, priceMax } = filters || {};
+  let { bedrooms, priceMin, priceMax } = filters || {};
+
+  if (bedrooms == 0) {
+    bedrooms = null;
+  }
 
   try {
     const result = await prisma.listing.findMany({
@@ -17,7 +21,7 @@ export const getListingsResults = async (
           { addressFull: { contains: address } },
           { address: { contains: address } }
         ],
-        ...(bedrooms && {
+        ...(bedrooms !== undefined && {
           beds: bedrooms
         }),
         listingPrice: {
@@ -111,13 +115,29 @@ export const getListingsScHistory = async (
 };
 
 export const getClosestListings = async (
-  coordinates: string
+  coordinates: string,
+  filters?: FiltersProps
 ): Promise<Listing[]> => {
   const [lat, long] = coordinates.split(',');
   const latitude = parseFloat(lat);
   const longitude = parseFloat(long);
   // Define search radius (in kilometers)
   const radius = 5;
+  const { bedrooms = null, priceMin = null, priceMax = null } = filters || {};
+
+  let conditional = '';
+
+  if (bedrooms !== null) {
+    conditional += `AND (l.beds = ${bedrooms})`;
+  }
+
+  if (priceMin !== null) {
+    conditional += `AND (l.listingPrice >= ${priceMin})`;
+  }
+
+  if (priceMax !== null) {
+    conditional += `AND (l.listingPrice <= ${priceMax})`;
+  }
 
   const query = `
 SELECT *,
@@ -126,19 +146,20 @@ SELECT *,
     cos(radians(TRIM(SUBSTRING_INDEX(coordinates, ',', 1)))) * cos(radians(${latitude})) * cos(radians(CAST(SUBSTRING_INDEX(coordinates, ',', -1) AS FLOAT) - ${longitude}))
   ) * 6373 AS distance
 FROM Listing AS l
-WHERE l.coordinates IS NOT NULL
+WHERE l.coordinates IS NOT NULL 
   AND (
     CAST(TRIM(SUBSTRING_INDEX(coordinates, ',', 1)) AS FLOAT) BETWEEN ${latitude} - ${radius} AND ${latitude} + ${radius}
     OR CAST(SUBSTRING_INDEX(coordinates, ',', -1) AS FLOAT) BETWEEN ${longitude} - ${radius} AND ${longitude} + ${radius}
   )
+
+ ${conditional}
+
 ORDER BY distance ASC
 LIMIT 10;
 `;
 
   try {
     const result: any = await prisma.$queryRawUnsafe(query);
-
-    console.log('result', result);
 
     return result;
   } catch (e) {

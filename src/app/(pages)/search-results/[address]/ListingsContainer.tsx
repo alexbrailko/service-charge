@@ -40,7 +40,7 @@ export const ListingsContainer: FC<ListingsContainerProps> = ({ address }) => {
 
         if (coords) {
           setClosestListingsMessage(true);
-          results = await getClosestListings(coords);
+          results = await getClosestListings(coords, filters);
         }
 
         if (!coords) {
