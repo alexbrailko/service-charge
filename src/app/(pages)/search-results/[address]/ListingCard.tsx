@@ -38,6 +38,8 @@ export const ListingCard: FC<Listing> = ({
     `${process.env.NEXT_PUBLIC_IMAGES_SERVER_URL}/${id}.webp`
   );
 
+  console.log('imgSrc', imgSrc);
+
   return (
     <div className="rounded-md box-shadow flex flex-col">
       <Link

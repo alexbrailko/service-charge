@@ -12,9 +12,10 @@ import {
 
 interface NavProps {
   className?: string;
+  onLinkClick: () => void;
 }
 
-export const Nav: FC<NavProps> = ({ className }) => {
+export const Nav: FC<NavProps> = ({ className, onLinkClick }) => {
   const currentPath = usePathname();
 
   return (
@@ -26,6 +27,7 @@ export const Nav: FC<NavProps> = ({ className }) => {
             currentPath === URL_SERVICE_CHARGE_FINDER && 'underline'
           )}
           href={URL_SERVICE_CHARGE_FINDER}
+          onClick={onLinkClick}
         >
           Service Charge Finder
         </Link>
@@ -37,6 +39,7 @@ export const Nav: FC<NavProps> = ({ className }) => {
             currentPath === URL_RESOURCES && 'underline'
           )}
           href={URL_RESOURCES}
+          onClick={onLinkClick}
         >
           Valuable Resources and Tools for Real Estate Investors
         </Link>
@@ -48,6 +51,7 @@ export const Nav: FC<NavProps> = ({ className }) => {
             currentPath === URL_PROPERTY_MANAGEMENT && 'underline'
           )}
           href={URL_PROPERTY_MANAGEMENT}
+          onClick={onLinkClick}
         >
           Property & Block Management
         </Link>

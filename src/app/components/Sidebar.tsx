@@ -31,7 +31,10 @@ const Sidebar = ({
           <CloseIcon color={'var(--dark)'} />
         </button>
         <div>
-          <Nav className="text-white space-y-6 font-medium text-xl" />
+          <Nav
+            onLinkClick={toggle}
+            className="text-white space-y-6 font-medium text-xl"
+          />
         </div>
         <div className="mt-auto">
           <h4 className="text-[28px] text-white mb-2">Contact us</h4>

@@ -18,8 +18,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '77.37.120.17',
+        protocol: 'https',
+        hostname: 'service-charge.co.uk',
         port: '',
         pathname: '/images/**'
       }
