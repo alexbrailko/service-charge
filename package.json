@@ -9,6 +9,11 @@
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run build"
+    }
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@next/third-parties": "^14.2.3",
