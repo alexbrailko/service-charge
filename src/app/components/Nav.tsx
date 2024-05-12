@@ -12,7 +12,7 @@ import {
 
 interface NavProps {
   className?: string;
-  onLinkClick: () => void;
+  onLinkClick?: () => void;
 }
 
 export const Nav: FC<NavProps> = ({ className, onLinkClick }) => {

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { CloseIcon } from '../images/svg/CloseIcon';
 import { Nav } from './Nav';
 import { Button } from './ui/Button';
