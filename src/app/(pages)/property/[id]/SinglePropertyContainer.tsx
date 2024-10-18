@@ -55,7 +55,7 @@ export const SinglePropertyContainer: FC<SinglePropertyContainerProps> = ({
       }
     }
 
-    if (!listing) {
+    if (!listings.length && !listing) {
       getListing();
     }
   }, [listing, error, listingId]);

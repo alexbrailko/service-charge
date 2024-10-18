@@ -196,7 +196,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
             )}
           /> */}
           <div className="">
-            <MapLeaflet items={[data]} />
+            <MapLeaflet items={[data]} isSinglePropertyPage />
           </div>
         </div>
       </div>

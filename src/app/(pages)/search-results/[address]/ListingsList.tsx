@@ -18,7 +18,7 @@ export const ListingsList: FC<ListingsListProps> = ({
   listingsNotFound,
   showClosestListingsMessage
 }) => {
-  const perPage = 6;
+  const perPage = 30;
   const currentPage = useListingsStore((state) => state.currentPage);
   const indexOfLastPost = currentPage * perPage;
   const indexOfFirstPost = indexOfLastPost - perPage;

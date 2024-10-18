@@ -17,9 +17,10 @@ interface MapProps {
   borderRadius?: string;
   fullScreenButton?: boolean;
   style?: string;
+  isSinglePropertyPage?: boolean;
 }
 
-const MapLeaflet: FC<MapProps> = ({ items, style, zoom = 18 }) => {
+const MapLeaflet: FC<MapProps> = ({ items, style, isSinglePropertyPage }) => {
   const [map, setMap] = useState<Map | null>(null);
 
   const getMapBounds = useCallback(
@@ -49,14 +50,14 @@ const MapLeaflet: FC<MapProps> = ({ items, style, zoom = 18 }) => {
       center={bounds.getCenter()}
       bounds={bounds}
       scrollWheelZoom={false}
-      className={cn('w-full hello h-[300px] rounded-md', style)}
+      className={cn('w-full h-[300px] rounded-md', style)}
       ref={setMap}
       // zoom={10}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <MarkerClusterGroup chunkedLoading>
         {items.map((item) => (
-          <Pin item={item} key={item.id} />
+          <Pin item={item} key={item.id} hideButton={isSinglePropertyPage} />
         ))}
       </MarkerClusterGroup>
     </MapContainer>

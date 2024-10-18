@@ -3,6 +3,7 @@
 import prisma from '@/db';
 import { FiltersProps } from '../(pages)/search-results/[address]/Filters';
 import { Listing } from '@prisma/client';
+import { AutocompleteResult } from '../components/SearchSection/SearchForm';
 
 export const getListingsResults = async (
   address: string,
@@ -192,5 +193,28 @@ export const getCoordinatesByAddress = async (address: string) => {
 
     console.error(error instanceof Error ? error.message : error);
     return Promise.reject();
+  }
+};
+
+export const getSearchAutocomplete = async (searchQuery: string) => {
+  try {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/search/autocomplete`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ searchQuery })
+    });
+    const data: { results: AutocompleteResult[] } = await response.json();
+
+    if (!data || !data.results.length) {
+      return [];
+    }
+
+    return data.results;
+  } catch (error) {
+    console.error('Autocomplete search failed:', error);
+    return [];
   }
 };

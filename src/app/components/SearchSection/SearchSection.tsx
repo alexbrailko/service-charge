@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MapMarkerIcon } from '@/app/images/svg/MapMarkerIcon';
 import dynamic from 'next/dynamic';
@@ -8,10 +8,7 @@ import dynamic from 'next/dynamic';
 import { useListingsStore } from '@/app/store/listings';
 import { SearchForm } from './SearchForm';
 import { Modal } from '../Modal';
-import {
-  getAllListings,
-  getListingsResults
-} from '@/app/queries/listingsActions';
+import { getAllListings } from '@/app/queries/listingsActions';
 import { Listing } from '@prisma/client';
 
 interface SearchSectionProps {

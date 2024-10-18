@@ -1,16 +1,17 @@
 'use client';
 import { modifyfullAddressString } from '@/app/helpers/common';
-//import { numberWithCommas } from '@/app/helpers/listings';
 import { Listing } from '@prisma/client';
 import { Icon } from 'leaflet';
 import React, { FC } from 'react';
 import { Marker, Popup } from 'react-leaflet';
+import { Button } from '../ui/Button';
 
 interface PinProps {
   item: Listing;
+  hideButton?: boolean;
 }
 
-export const Pin: FC<PinProps> = ({ item }) => {
+export const Pin: FC<PinProps> = ({ item, hideButton }) => {
   const coords = item.coordinates?.split(/\s*,\s*/) || [];
 
   const customIcon = new Icon({
@@ -40,6 +41,11 @@ export const Pin: FC<PinProps> = ({ item }) => {
             <div className="mt-1">
               {' '}
               <span className="font-bold">Ground rent:</span> £{item.groundRent}
+            </div>
+          )}
+          {!hideButton && (
+            <div className="mt-3">
+              <Button title="More details" url={`/property/${item.id}`} />
             </div>
           )}
         </div>
