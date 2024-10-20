@@ -49,7 +49,7 @@ const MapLeaflet: FC<MapProps> = ({ items, style, isSinglePropertyPage }) => {
     <MapContainer
       center={bounds.getCenter()}
       bounds={bounds}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       className={cn('w-full h-[300px] rounded-md', style)}
       ref={setMap}
       // zoom={10}
