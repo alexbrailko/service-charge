@@ -151,7 +151,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
           <ServiceChargeHistory address={addressFull} beds={beds || 0} />
         </div>
         <div>
-          {!imageNotFound && (
+          {/* {!imageNotFound && (
             <Image
               src={imgSrc}
               alt={address}
@@ -166,7 +166,7 @@ export const SingleProperty: FC<SinglePropertyProps> = ({ data }) => {
                 setImageNotFound(true);
               }}
             />
-          )}
+          )} */}
 
           {/* <ReactImageGallery
             items={pics}
