@@ -6,54 +6,21 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # Or your preferred runner
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      - uses: actions/checkout@v4 # Checkout code from repository
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 21.7.2
-
-      - name: Install dependencies
-        run: npm install # Or yarn install
-
-      - name: Load environment variables
-        run: |
-          touch .env
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env  # Create temporary .env file
-
-      - name: Build Next.js app
-        run: npm run build # Or yarn build
-
-      - name: Remove temporary.env file
-        run: rm .env
-
       - name: SSH Deploy
-        # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }} # Your server's IP address
-          username: ${{ secrets.USERNAME }} # Your server's username
-          password: ${{ secrets.PASSWORD }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
-          command_timeout: 200m
+          command_timeout: 30m
           script: |
-            cd ../var/www/service-charge
+            cd /var/www/service-charge
             git pull
-            npm install
+            npm ci
+            npx prisma migrate deploy
             npm run build
-            pm2 restart nextjs
+            pm2 reload nextjs || pm2 start npm --name nextjs -- start
+            pm2 save
